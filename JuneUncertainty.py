@@ -44,7 +44,7 @@ def main():
     # Pressure is quarterly, Mass is monthly
     MassCumul = integralFunc(MassTime2, MassHist)
 
-    # plot stuff
+    # plot preliminary analysis
     if True:
         fig, ax = plt.subplots()
         P1 = a*MassCumul/10**6
@@ -61,7 +61,7 @@ def main():
         # implying gas leaks bag into reservoir - impossible
         plt.show()
 
-
+    # add q scaling and analysis using model parameters
 
     return
 
