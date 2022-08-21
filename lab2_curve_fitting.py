@@ -24,7 +24,7 @@ def ode_model(t, p, q, p0 ,a, b):
     return (a * q)
 
 
-def interpolate_kettle_heatsource(t, scale=1):
+def interpolate_kettle_heatsource(t, scale=1.):
 
     time , mass = np.genfromtxt( 'gs_mass.txt' , delimiter=',', skip_header = 1 ).T
     secondsPerMonth = 2628288 #average month
@@ -40,7 +40,7 @@ def interpolate_kettle_heatsource(t, scale=1):
                 found = 1
     return res
 
-def solve_kettle_ode(f, t, x0, pars, scale=1):
+def solve_kettle_ode(f, t, x0, pars, scale=1.):
     ''' Solve the kettle ODE numerically.
 
         Parameters:

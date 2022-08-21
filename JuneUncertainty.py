@@ -72,8 +72,8 @@ def main():
     if True:
         fig2, ax2 = plt.subplots()
         pars = [p0, a, b]
-        model1Time, model1P = solve_kettle_ode(ode_model, MassTime1, p0, pars, scale=1)
-        model2Time, model2P = solve_kettle_ode(ode_model, MassTime1, p0, pars, scale=2)
+        model1Time, model1P = solve_kettle_ode(ode_model, MassTime1, p0, pars, scale=1.)
+        model2Time, model2P = solve_kettle_ode(ode_model, MassTime1, p0, pars, scale=2.)
         ax2.plot(model1Time, model1P)
         ax2.plot(model2Time, model2P)
         plt.show()
