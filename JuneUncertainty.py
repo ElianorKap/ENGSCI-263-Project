@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from June_sdlab_functions import *
+from lab2_curve_fitting import *
 
 #params:
 overpressure = 25.6
@@ -42,26 +43,40 @@ def main():
         MassTime2 = [*MassTime2,MassTime2[-1]+1/12]
     MassTime2 = [*MassTime2,2019.000001]
     # Pressure is quarterly, Mass is monthly
-    MassCumul = integralFunc(MassTime2, MassHist)
-
+    MassCumul1 = integralFunc(MassTime2, MassHist)
+    for i in range(len(MassHist)):
+        if i == 0:
+            MassCumul2 = np.array([MassHist[i]])
+        else:
+            MassCumul2 = [*MassCumul2,MassCumul2[-1]+MassHist[i]]
     # plot preliminary analysis
-    if True:
-        fig, ax = plt.subplots()
-        P1 = a*MassCumul/10**6
+    if False:
+        fig1, ax1 = plt.subplots()
+        P11 = a*MassCumul1/10.**6.
+        P12 = a*np.array(MassCumul2)/10.**8.
         P2 = PresHist-PresHist[0]
-        spline1 = np.linalg.solve(spline_coefficient_matrix(MassTime2), spline_rhs(MassTime2, P1))
+        spline1 = np.linalg.solve(spline_coefficient_matrix(MassTime2), spline_rhs(MassTime2, P12))
         MassInter = spline_interpolate(PresTime, MassTime2, spline1)
         P3 = P2-MassInter
         P4 = derivativeFunc(PresTime,P3)
-        ax.plot(MassTime2,P1)
-        ax.plot(PresTime,P2)
-        ax.plot(PresTime,P3)
-        ax.plot(PresTime,P4)
+        ax1.plot(MassTime2,P12)
+        ax1.plot(PresTime,P2)
+        ax1.plot(PresTime,P3)
+        ax1.plot(PresTime,P4)
         # plot shows positive derivative in gas leakage
         # implying gas leaks bag into reservoir - impossible
         plt.show()
 
     # add q scaling and analysis using model parameters
+    # model plots
+    if True:
+        fig2, ax2 = plt.subplots()
+        pars = [p0, a, b]
+        model1Time, model1P = solve_kettle_ode(ode_model, MassTime1, p0, pars, scale=1)
+        model2Time, model2P = solve_kettle_ode(ode_model, MassTime1, p0, pars, scale=2)
+        ax2.plot(model1Time, model1P)
+        ax2.plot(model2Time, model2P)
+        plt.show()
 
     return
 
