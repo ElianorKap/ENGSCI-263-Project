@@ -35,7 +35,7 @@ def derivativeFunc(xj,yj):
     yi[-1] = yi[-2]
     return yi
 
-def main():
+def main(Plot1,Plot2):
     PresTime, PresHist = np.genfromtxt('gs_pres.txt', delimiter=',', skip_header=1).T
     MassTime1, MassHist = np.genfromtxt('gs_mass.txt', delimiter=',', skip_header=1).T
     MassTime2 = [2009.]
@@ -50,7 +50,7 @@ def main():
         else:
             MassCumul2 = [*MassCumul2,MassCumul2[-1]+MassHist[i]]
     # plot preliminary analysis
-    if False:
+    if Plot1:
         fig1, ax1 = plt.subplots()
         P11 = a*MassCumul1/10.**6.
         P12 = a*np.array(MassCumul2)/10.**8.
@@ -69,11 +69,12 @@ def main():
 
     # add q scaling and analysis using model parameters
     # model plots
-    if True:
+    if Plot2:
         fig2, ax2 = plt.subplots()
         pars = [p0, a, b]
-        model1Time, model1P = solve_kettle_ode(ode_model, MassTime1, p0, pars, scale=1.)
-        model2Time, model2P = solve_kettle_ode(ode_model, MassTime1, p0, pars, scale=2.)
+        x0 = 25.16
+        model1Time, model1P = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=1.)
+        model2Time, model2P = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=2.)
         ax2.plot(model1Time, model1P)
         ax2.plot(model2Time, model2P)
         plt.show()
@@ -81,5 +82,5 @@ def main():
     return
 
 if __name__ == '__main__':
-    main()
+    main(True,True)
 
