@@ -84,11 +84,21 @@ def benchmarking(a, B, q, p0):
 
             Parameters:
             -----------
-            none
+            a : float
+                Lumped parameter.
+            B : float
+                Binary control variable.
+             q : float
+                mass flow rate.
+            p0 : float
+                Initial value of solution.
 
             Returns:
             --------
-            none
+            analytical_solution : float
+                                Analytical solution at final time.
+            numerical_solution : float
+                                Numerical solution at final time.
 
             Notes:
             ------
@@ -146,8 +156,9 @@ def benchmarking(a, B, q, p0):
     ax2.set_xlabel('1/theta(t)')
     ax2.set_title("timestep convergence")
     plt.show()
-    print(y1[-1], y2[-1])
-    return y1[-1], y2[-1]
+    analytical_solution = y1[-1]
+    numerical_solution = y2[-1]
+    return analytical_solution, numerical_solution
 
 
 if __name__ == '__main__':
