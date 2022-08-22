@@ -79,7 +79,7 @@ def solve_ode(f, t0, t1, dt, p0, pars):
     # return the time and pressure for numerical solution
     return t, p
 
-def benchmarking():
+def benchmarking(a, B, q, p0):
     ''' Compare analytical and numerical solutions.
 
             Parameters:
@@ -102,11 +102,6 @@ def benchmarking():
     t = []
     for i in np.arange(0, 10, 0.5):
         t.append(i)
-    # set the parameters
-    a = 1
-    B = 1
-    q = -1
-    p0 = 0
     t0 = t[0]
     t1 = t[-1]
     dt = 0.1
@@ -151,8 +146,9 @@ def benchmarking():
     ax2.set_xlabel('1/theta(t)')
     ax2.set_title("timestep convergence")
     plt.show()
-
+    print(y1[-1], y2[-1])
+    return y1[-1], y2[-1]
 
 
 if __name__ == '__main__':
-    benchmarking()
+    benchmarking(1,1,-1,0)
