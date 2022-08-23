@@ -29,7 +29,21 @@ def integralFunc(xj,yj):
 
 
 def derivativeFunc(xj,yj):
-    # Calculates forwards derivative at each point
+    '''
+    Calculates forwards derivative at each point in a list
+
+    Parameters
+    ----------
+    xj : list
+        list of independent variable values
+    yj: list
+        list of dependent variable values to differentiate
+
+    Returns
+    -------
+    yi: list
+        list of forwards derivative values
+    '''
     # copies input array of independent variable
     yi = yj.copy()
     # loops over each value but last
@@ -41,14 +55,31 @@ def derivativeFunc(xj,yj):
     # returns array of derivatives
     return yi
 
-def gasLeakage(model1Time, model1P):
+def gasLeakage(Time, Pres, Overpressure):
+    '''
+    Calculates gas leakage rate along a pressure model time series
+
+    Parameters
+    ----------
+    Time : list
+        list of time values
+    Pres: list
+        list of pressure values
+    Overpressure: float
+        float of overpressure threshold
+
+    Returns
+    -------
+    dleakage: list
+        list of gas leakage rate values
+    '''
     # initialises array holding gas leakage values
     dleakage = []
     # loops over every element in time array
-    for i in range(len(model1Time)):
+    for i in range(len(Time)):
         # if model pressure is above overpressure, calculates gas leakage rate
-        if model1P[i] > overpressure:
-            dleakage = [*dleakage, -b * (model1P[i] - overpressure) ** 2]
+        if Pres[i] > Overpressure:
+            dleakage = [*dleakage, -b * (Pres[i] - Overpressure) ** 2]
         # if model pressure is below overpressure gas leakage is 0
         else:
             dleakage = [*dleakage, 0.]
@@ -58,6 +89,24 @@ def gasLeakage(model1Time, model1P):
     return dleakage
 
 def main(Plot1,Plot2, Plot3, Plot4):
+    '''
+    Generates plots and calculates values for prediction and uncertainty for pressure model
+
+    Parameters
+    ----------
+    Plot1 : bool
+        boolean determining if section one is ran
+    Plot2 : bool
+        boolean determining if section two is ran
+    Plot3 : bool
+        boolean determining if section three is ran
+    Plot4 : bool
+        boolean determining if section four is ran
+
+    Returns
+    -------
+    None
+    '''
     # inputs, 3 boolean, each matches to ordered section, section 1 is worthless
     # section 2 is model pressure
     # obtains historical data for pressure and mass flow time series from file
@@ -139,8 +188,8 @@ def main(Plot1,Plot2, Plot3, Plot4):
     # Scaled model gas leakage plots:
     if Plot3:
         # calculates gas leakage rates for scaled model series'
-        dleakage1 = gasLeakage(model1Time, model1P)
-        dleakage2 = gasLeakage(model2Time, model2P)
+        dleakage1 = gasLeakage(model1Time, model1P, overpressure)
+        dleakage2 = gasLeakage(model2Time, model2P, overpressure)
         # creates figure and axes objects
         fig3, ax3 = plt.subplots()
         ax3.plot(model1Time, model1P-model1P[0], label='Pressure Model')
@@ -167,7 +216,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
             # models pressure at variable scale
             modelxTime, modelxP = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=loopScale)
             # calculates leakage rates for model
-            dleakagex = gasLeakage(modelxTime, modelxP)
+            dleakagex = gasLeakage(modelxTime, modelxP, overpressure)
             # calculates cumulative gas leakage
             cumulLeakx = integralFunc(modelxTime, dleakagex)
             # if there is no gas leakage ends loop
