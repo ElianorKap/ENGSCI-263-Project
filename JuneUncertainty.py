@@ -55,7 +55,7 @@ def derivativeFunc(xj,yj):
     # returns array of derivatives
     return yi
 
-def gasLeakage(Time, Pres, Overpressure):
+def gasLeakage(Time, Pres, Overpressure, B):
     '''
     Calculates gas leakage rate along a pressure model time series
 
@@ -67,6 +67,8 @@ def gasLeakage(Time, Pres, Overpressure):
         list of pressure values
     Overpressure: float
         float of overpressure threshold
+    B: float
+        Overpressure threshold value
 
     Returns
     -------
@@ -79,7 +81,7 @@ def gasLeakage(Time, Pres, Overpressure):
     for i in range(len(Time)):
         # if model pressure is above overpressure, calculates gas leakage rate
         if Pres[i] > Overpressure:
-            dleakage = [*dleakage, -b * (Pres[i] - Overpressure) ** 2]
+            dleakage = [*dleakage, -B * (Pres[i] - Overpressure) ** 2]
         # if model pressure is below overpressure gas leakage is 0
         else:
             dleakage = [*dleakage, 0.]
@@ -188,8 +190,8 @@ def main(Plot1,Plot2, Plot3, Plot4):
     # Scaled model gas leakage plots:
     if Plot3:
         # calculates gas leakage rates for scaled model series'
-        dleakage1 = gasLeakage(model1Time, model1P, overpressure)
-        dleakage2 = gasLeakage(model2Time, model2P, overpressure)
+        dleakage1 = gasLeakage(model1Time, model1P, overpressure, b)
+        dleakage2 = gasLeakage(model2Time, model2P, overpressure, b)
         # creates figure and axes objects
         fig3, ax3 = plt.subplots()
         ax3.plot(model1Time, model1P-model1P[0], label='Pressure Model')
@@ -216,7 +218,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
             # models pressure at variable scale
             modelxTime, modelxP = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=loopScale)
             # calculates leakage rates for model
-            dleakagex = gasLeakage(modelxTime, modelxP, overpressure)
+            dleakagex = gasLeakage(modelxTime, modelxP, overpressure, b)
             # calculates cumulative gas leakage
             cumulLeakx = integralFunc(modelxTime, dleakagex)
             # if there is no gas leakage ends loop
