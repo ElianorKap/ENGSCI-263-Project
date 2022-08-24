@@ -251,7 +251,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
         ax4b.plot(PresTime, PresHist, label = 'Historical Pressure')
         ax4b.plot(model1Time, model1P, label = 'Model Pressure')
         ax4b.plot(model2Time, model2P, label = 'Model Pressure Double Capacity')
-        ax4b.legend()
+        ax4b.legend(bbox_to_anchor=(0.5, 0.9))
         plt.xlabel('Time (Years)')
         plt.ylabel('Pressure (MPa)')
         plt.show()
