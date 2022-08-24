@@ -6,12 +6,16 @@ from June_sdlab_functions import *
 from lab2_curve_fitting import *
 
 #params:
+'''
 overpressure = 25.6
 a = 16.88353712877018
 b = 0.057656759102383694
 p0 = 18.72192256351264
-
-
+'''
+overpressure = 25.6
+a = 18.1
+b = 0.026
+p0 = 10.87
 
 def integralFunc(xj,yj):
     # creates 1D array of zeros, same length as input array of data
@@ -216,7 +220,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
     if Plot3:
         # creates figure and axes objects
         fig3, ax3 = plt.subplots()
-        ax3.plot(model1Time, model1P - model1P[0], label='Pressure Model')
+        ax3.plot(model1Time, model1P - PresHist[0], label='Pressure Model')
         ax3.plot(PresTime, PresHist - PresHist[0], label='Pressure Historical')
         ax3.plot(model1Time, dleakage1, label="Leakage rate s=1")
         ax3.plot(model2Time, dleakage2, label="Leakage rate s=2")
@@ -234,7 +238,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
     if Plot4:
         # plots model pressure, leakage rate, cumulative leakage
         fig4a, ax4a = plt.subplots()
-        ax4a.plot(model1Time, model1P-model1P[0], label='Model Pressure Variation')
+        ax4a.plot(model1Time, model1P-PresHist[0], label='Model Pressure Variation')
         ax4a.plot(model1Time, cumulLeak1, label = 'Cumulative Gas Leakage')
         ax4a.set_xlabel('Time (Years)')
         ax4a.set_ylabel('Pressure variation from initial (MPa)')
@@ -282,5 +286,5 @@ def main(Plot1,Plot2, Plot3, Plot4):
     return
 
 if __name__ == '__main__':
-    main(False, False, False, True)
+    main(False, True, True, True)
 
