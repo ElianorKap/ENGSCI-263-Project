@@ -230,13 +230,20 @@ def main(Plot1,Plot2, Plot3, Plot4):
         print('Zero leakage scale is: {}'.format(loopScale))
 
     # creates presentation plots
+    # todo comment advanced plot commands
     if Plot4:
         # plots model pressure, leakage rate, cumulative leakage
         fig4a, ax4a = plt.subplots()
         ax4a.plot(model1Time, model1P-model1P[0], label='Model Pressure Variation')
-        ax4a.plot(model1Time, dleakage1, label = 'Gas Leakage Rate')
         ax4a.plot(model1Time, cumulLeak1, label = 'Cumulative Gas Leakage')
-        ax4a.legend()
+        ax4a.set_xlabel('Time (Years)')
+        ax4a.set_ylabel('Pressure variation from initial (MPa)')
+        ax4at = ax4a.twinx()
+        ax4at.plot(model1Time, dleakage1, 'g', label='Gas Leakage Rate')
+        ax4at.set_ylabel('Pressure change rate (MPa/year)')
+        ax4at.set_ylim([-0.026,0.024])
+        fig4a.legend(bbox_to_anchor=(0.9, 1.0),ncol=2)
+        plt.tight_layout()
         plt.show()
 
         # plots historical pressure, model pressure, model pressure scale=2
@@ -245,22 +252,31 @@ def main(Plot1,Plot2, Plot3, Plot4):
         ax4b.plot(model1Time, model1P, label = 'Model Pressure')
         ax4b.plot(model2Time, model2P, label = 'Model Pressure Double Capacity')
         ax4b.legend()
+        plt.xlabel('Time (Years)')
+        plt.ylabel('Pressure (MPa)')
         plt.show()
 
         # plots leakage rate, leakage rate scale=2, cumulative leakage, cumulative leakage scale=2
         fig4c, ax4c = plt.subplots()
-        ax4c.plot(model1Time, dleakage1, label = 'Gas Leakage Rate')
-        ax4c.plot(model2Time, dleakage2, label = 'Gas Leakage Rate Double Capacity')
         ax4c.plot(model1Time, cumulLeak1, label = 'Cumulative Gas Leakage')
         ax4c.plot(model2Time, cumulLeak2, label = 'Cumulative Gas Leakage Double Capacity')
-        ax4c.legend()
+        ax4c.set_xlabel('Time (Years)')
+        ax4c.set_ylabel('Pressure change (MPa)')
+        ax4ct = ax4c.twinx()
+        ax4ct.plot(model1Time, dleakage1, 'g', label='Gas Leakage Rate')
+        ax4ct.plot(model2Time, dleakage2, 'r', label='Gas Leakage Rate Double Capacity')
+        ax4ct.set_ylabel('Pressure change rate (MPa/year)')
+        ax4ct.set_ylim([-0.50, 0.027])
+        fig4c.legend(bbox_to_anchor=(0.672, 0.311))
         plt.show()
 
         # plots model pressure, model pressure scale=zero leakage
         fig4d, ax4d = plt.subplots()
         ax4d.plot(model1Time, model1P, label = 'Model Pressure')
         ax4d.plot(modelxTime, modelxP, label = 'Model Pressure No Leakage')
-        ax4d.legend()
+        ax4d.legend(bbox_to_anchor=(0.7, 1.07))
+        plt.xlabel('Time (Years)')
+        plt.ylabel('Pressure (MPa)')
         plt.show()
 
     return
