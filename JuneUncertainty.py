@@ -272,7 +272,8 @@ def main(Plot1,Plot2, Plot3, Plot4):
         ax4ct.plot(model2Time, dleakage2, 'r', label='Gas Leakage Rate Double Capacity')
         ax4ct.set_ylabel('Pressure change rate (MPa/year)')
         ax4ct.set_ylim([-0.06, 0.003])
-        fig4c.legend(bbox_to_anchor=(0.672, 0.311))
+        fig4c.legend(bbox_to_anchor=(0.685, 0.325))
+        plt.tight_layout()
         plt.show()
 
         # plots model pressure, model pressure scale=zero leakage
