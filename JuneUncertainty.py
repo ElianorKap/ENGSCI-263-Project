@@ -3,7 +3,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from June_sdlab_functions import *
-from lab2_curve_fitting import *
+#from lab2_curve_fitting import *
+from practice import *
 
 #params:
 '''
@@ -174,9 +175,9 @@ def main(Plot1,Plot2, Plot3, Plot4):
     # creates variable for initial pressure
     x0 = 25.16
     # models pressure at q scale 1
-    model1Time, model1P = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=1.)
+    model1Time, model1P = solve_ode_kettle(ode_model, 2009. ,2019., 0.1, x0, pars, scale=1.)
     # models pressure at q scale 2
-    model2Time, model2P = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=2.)
+    model2Time, model2P = solve_ode_kettle(ode_model, 2009. ,2019., 0.1, x0, pars, scale=2.)
 
     # model plots
     if Plot2:
@@ -204,7 +205,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
     # loops while boolean variable is True
     while loopBool:
         # models pressure at variable scale
-        modelxTime, modelxP = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=loopScale)
+        modelxTime, modelxP = solve_ode_kettle(ode_model, 2009. ,2019., 0.1, x0, pars, scale=loopScale)
         # calculates leakage rates for model
         dleakagex = gasLeakage(modelxTime, modelxP, overpressure, b)
         # calculates cumulative gas leakage
@@ -245,7 +246,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
         ax4at = ax4a.twinx()
         ax4at.plot(model1Time, dleakage1, 'g', label='Gas Leakage Rate')
         ax4at.set_ylabel('Pressure change rate (MPa/year)')
-        ax4at.set_ylim([-0.026,0.024])
+        ax4at.set_ylim([-0.003,0.0045])
         fig4a.legend(bbox_to_anchor=(0.9, 1.0),ncol=2)
         plt.tight_layout()
         plt.show()
@@ -270,7 +271,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
         ax4ct.plot(model1Time, dleakage1, 'g', label='Gas Leakage Rate')
         ax4ct.plot(model2Time, dleakage2, 'r', label='Gas Leakage Rate Double Capacity')
         ax4ct.set_ylabel('Pressure change rate (MPa/year)')
-        ax4ct.set_ylim([-0.50, 0.027])
+        ax4ct.set_ylim([-0.06, 0.003])
         fig4c.legend(bbox_to_anchor=(0.672, 0.311))
         plt.show()
 
@@ -278,7 +279,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
         fig4d, ax4d = plt.subplots()
         ax4d.plot(model1Time, model1P, label = 'Model Pressure')
         ax4d.plot(modelxTime, modelxP, label = 'Model Pressure No Leakage')
-        ax4d.legend(bbox_to_anchor=(0.7, 1.07))
+        ax4d.legend(bbox_to_anchor=(0.55, 1.))
         plt.xlabel('Time (Years)')
         plt.ylabel('Pressure (MPa)')
         plt.show()
@@ -286,5 +287,5 @@ def main(Plot1,Plot2, Plot3, Plot4):
     return
 
 if __name__ == '__main__':
-    main(False, True, True, True)
+    main(False, False, True, True)
 

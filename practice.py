@@ -11,24 +11,24 @@ def ode_model(t, p, q, p0 ,  a, b ):
     return (a * q)
 
 
-def solve_ode_kettle(f,t0, t1, dt, x0, pars):
+def solve_ode_kettle(f,t0, t1, dt, x0, pars, scale=1.):
 
-    def step_ieuler(f, tk, yk, h, args=None):
+    def step_ieuler(f, tk, yk, h, args=None, scale=1.):
 
         #Solve q first
-        def qsolve1(tk):
-            q = interpolate_kettle_heatsource(tk)
+        def qsolve1(tk, scale=1.):
+            q = interpolate_kettle_heatsource(tk, scale)
             return q
 
         if args is None:
             args = []
         #Find k1
-        q = qsolve1(tk)
+        q = qsolve1(tk, scale)
         k1 = f(tk,yk,q,*args)
         #Take a forward step
         fake_step = yk + h*k1
         #find k2
-        q = qsolve1(tk + h)
+        q = qsolve1(tk + h, scale)
         k2 = f(tk+h, fake_step,q,*args)
         #approximate solution value for next step
         yk_1 = yk + 0.5*h*(k1+k2)
@@ -49,18 +49,18 @@ def solve_ode_kettle(f,t0, t1, dt, x0, pars):
             continue
         else:
             #Uses improved euler
-            xk_1 = step_ieuler(f, i-dt, x0, dt, pars)
+            xk_1 = step_ieuler(f, i-dt, x0, dt, pars, scale)
             x0 = xk_1
             x.append( xk_1 )
 
     return t,x
 
 
-def interpolate_kettle_heatsource(t):
+def interpolate_kettle_heatsource(t, scale=1.):
 
     time , mass = np.genfromtxt( 'gs_mass.txt' , delimiter=',', skip_header = 1 ).T
     secondsPerMonth = 2628288 #average month 
-    q = mass / secondsPerMonth
+    q = scale*mass / secondsPerMonth
 
 
     for i in range(len(time)):
