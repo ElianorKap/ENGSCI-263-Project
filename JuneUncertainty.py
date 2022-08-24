@@ -134,7 +134,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
             # adds previous mass flow value to running total to fill current array value
             MassCumul2 = [*MassCumul2,MassCumul2[-1]+MassHist[i]]
 
-    # plot preliminary analysis
+    # plot preliminary analysis - useless
     if Plot1:
         # creates figure and axes objects
         fig1, ax1 = plt.subplots()
@@ -173,7 +173,7 @@ def main(Plot1,Plot2, Plot3, Plot4):
     model1Time, model1P = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=1.)
     # models pressure at q scale 2
     model2Time, model2P = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=2.)
-    # add q scaling and analysis using model parameters
+
     # model plots
     if Plot2:
         # creates figure and axes objects
@@ -187,51 +187,84 @@ def main(Plot1,Plot2, Plot3, Plot4):
         plt.show()
         # notes on plot
 
+    # calculates gas leakage rates for scaled model series'
+    dleakage1 = gasLeakage(model1Time, model1P, overpressure, b)
+    dleakage2 = gasLeakage(model2Time, model2P, overpressure, b)
+    # calculates cumulate gas leakage
+    cumulLeak1 = integralFunc(model1Time, dleakage1)
+    cumulLeak2 = integralFunc(model2Time, dleakage2)
+    # finds maximum scale factor to have 0 gas leakage
+    # initialises loop variables
+    loopBool = True
+    loopScale = 1.
+    # loops while boolean variable is True
+    while loopBool:
+        # models pressure at variable scale
+        modelxTime, modelxP = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=loopScale)
+        # calculates leakage rates for model
+        dleakagex = gasLeakage(modelxTime, modelxP, overpressure, b)
+        # calculates cumulative gas leakage
+        cumulLeakx = integralFunc(modelxTime, dleakagex)
+        # if there is no gas leakage ends loop
+        if cumulLeakx[-1] == 0.:
+            loopBool = False
+        #loopScale *= 0.9
+        loopScale = (loopScale - 0.01)*0.95
+        #loopScale = loopScale - 0.01
+
     # Scaled model gas leakage plots:
     if Plot3:
-        # calculates gas leakage rates for scaled model series'
-        dleakage1 = gasLeakage(model1Time, model1P, overpressure, b)
-        dleakage2 = gasLeakage(model2Time, model2P, overpressure, b)
         # creates figure and axes objects
         fig3, ax3 = plt.subplots()
-        ax3.plot(model1Time, model1P-model1P[0], label='Pressure Model')
-        ax3.plot(PresTime, PresHist-PresHist[0], label='Pressure Historical')
+        ax3.plot(model1Time, model1P - model1P[0], label='Pressure Model')
+        ax3.plot(PresTime, PresHist - PresHist[0], label='Pressure Historical')
         ax3.plot(model1Time, dleakage1, label="Leakage rate s=1")
         ax3.plot(model2Time, dleakage2, label="Leakage rate s=2")
         ax3.legend()
         plt.show()
-        # calculates cumulate gas leakage
-        cumulLeak1 = integralFunc(model1Time, dleakage1)
-        cumulLeak2 = integralFunc(model2Time, dleakage2)
         # prints total gas leakage and increase
         print('Total gas leakage is (s=1): {}'.format(cumulLeak1[-1]))
         print('Total gas leakage is (s=2): {}'.format(cumulLeak2[-1]))
-        print('Increase in leakage is: {}%'.format(cumulLeak2[-1]*100/cumulLeak1[-1]))
-
-    # finds maximum scale factor to have 0 gas leakage
-    if Plot4:
-        # initialises loop variables
-        loopBool = True
-        loopScale = 1.
-        # loops while boolean variable is True
-        while loopBool:
-            # models pressure at variable scale
-            modelxTime, modelxP = solve_kettle_ode(ode_model, MassTime1, x0, pars, scale=loopScale)
-            # calculates leakage rates for model
-            dleakagex = gasLeakage(modelxTime, modelxP, overpressure, b)
-            # calculates cumulative gas leakage
-            cumulLeakx = integralFunc(modelxTime, dleakagex)
-            # if there is no gas leakage ends loop
-            if cumulLeakx[-1] == 0.:
-                loopBool = False
-            #loopScale *= 0.9
-            loopScale = (loopScale - 0.01)*0.95
-            #loopScale = loopScale - 0.01
+        print('Increase in leakage is: {}%'.format(cumulLeak2[-1] * 100 / cumulLeak1[-1]))
         # prints maximum scale at which 0 leakage is modelled
         print('Zero leakage scale is: {}'.format(loopScale))
+
+    # creates presentation plots
+    if Plot4:
+        # plots model pressure, leakage rate, cumulative leakage
+        fig4a, ax4a = plt.subplots()
+        ax4a.plot(model1Time, model1P-model1P[0], label='Model Pressure Variation')
+        ax4a.plot(model1Time, dleakage1, label = 'Gas Leakage Rate')
+        ax4a.plot(model1Time, cumulLeak1, label = 'Cumulative Gas Leakage')
+        ax4a.legend()
+        plt.show()
+
+        # plots historical pressure, model pressure, model pressure scale=2
+        fig4b, ax4b = plt.subplots()
+        ax4b.plot(PresTime, PresHist, label = 'Historical Pressure')
+        ax4b.plot(model1Time, model1P, label = 'Model Pressure')
+        ax4b.plot(model2Time, model2P, label = 'Model Pressure Double Capacity')
+        ax4b.legend()
+        plt.show()
+
+        # plots leakage rate, leakage rate scale=2, cumulative leakage, cumulative leakage scale=2
+        fig4c, ax4c = plt.subplots()
+        ax4c.plot(model1Time, dleakage1, label = 'Gas Leakage Rate')
+        ax4c.plot(model2Time, dleakage2, label = 'Gas Leakage Rate Double Capacity')
+        ax4c.plot(model1Time, cumulLeak1, label = 'Cumulative Gas Leakage')
+        ax4c.plot(model2Time, cumulLeak2, label = 'Cumulative Gas Leakage Double Capacity')
+        ax4c.legend()
+        plt.show()
+
+        # plots model pressure, model pressure scale=zero leakage
+        fig4d, ax4d = plt.subplots()
+        ax4d.plot(model1Time, model1P, label = 'Model Pressure')
+        ax4d.plot(modelxTime, modelxP, label = 'Model Pressure No Leakage')
+        ax4d.legend()
+        plt.show()
 
     return
 
 if __name__ == '__main__':
-    main(False, False, True, True)
+    main(False, False, False, True)
 
