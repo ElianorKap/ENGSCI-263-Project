@@ -286,6 +286,9 @@ def main(Plot1,Plot2, Plot3, Plot4):
         plt.show()
         print(cumulLeak1[-1] * 10. ** 5 / (a))
 
+    # todo - analysis for scaling between 1-2
+    # todo - future predictions? add previous mass flow onto end
+
     return
 
 if __name__ == '__main__':
