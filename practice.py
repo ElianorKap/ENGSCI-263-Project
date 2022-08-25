@@ -71,7 +71,7 @@ def interpolate_kettle_heatsource(t, scale=1.):
 #     time , pressure = np.genfromtxt( 'gs_pres.txt' , delimiter=',', skip_header = 1 ).T
 #     t = np.linspace(2009.0,2019.0,201)
 #     t , p = solve_kettle_ode(ode_model, t, 25.16 , pars)
-#     p_model = [p[i] for i in range(0,len(t)+1, 5 )] 
+#     p_model = [p[i] for i in range(0,len(t)+1, 5 )]
 
 
 #     # calculate the objective function
@@ -120,11 +120,11 @@ def plot_kettle_model():
     ax.legend()
 
     # p_model = [p[i] for i in range(0,len(t)+1, 5 )] 
-    # constants=curve_fit(Tmodel,  p_model , pressure, [a,b])
+    constants=curve_fit(Tmodel,  p_model , pressure, [a,b])
     
     # a_const=constants[0][0]
     # b_const=constants[0][1]
-    #plt.show()
+    plt.show()
     plt.savefig("modelFitImproved")
     
 

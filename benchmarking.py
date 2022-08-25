@@ -162,4 +162,4 @@ def benchmarking(a, B, q, p0):
 
 
 if __name__ == '__main__':
-    benchmarking(1,1,-1,0)
+    benchmarking(18.1,0.026,25.6,10.87)
