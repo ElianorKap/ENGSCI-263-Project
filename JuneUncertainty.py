@@ -284,9 +284,10 @@ def main(Plot1,Plot2, Plot3, Plot4):
         plt.xlabel('Time (Years)')
         plt.ylabel('Pressure (MPa)')
         plt.show()
+        print(cumulLeak1[-1] * 10. ** 5 / (a))
 
     return
 
 if __name__ == '__main__':
-    main(False, False, True, True)
+    main(False, False, False, False)
 
