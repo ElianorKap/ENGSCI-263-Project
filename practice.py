@@ -120,7 +120,7 @@ def plot_kettle_model():
     ax.legend()
 
     # p_model = [p[i] for i in range(0,len(t)+1, 5 )] 
-    constants=curve_fit(Tmodel,  p_model , pressure, [a,b])
+    #constants=curve_fit(Tmodel,  p_model , pressure, [a,b])
     
     # a_const=constants[0][0]
     # b_const=constants[0][1]
