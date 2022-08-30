@@ -51,7 +51,10 @@ Others
 ## Instructions  
 
 
-1. Run Main.py which will produce all the model figures in the group projects.
-2. Within the `Main.py` function, you will need to input values for benchmarking() and main() functions in order to plot the figures within those functions.
-3. For benchmarking() function, you can input the following parameters 18.1,0.026,25.6,10.87
-4. For main() function, you will need to input False,True,True,True as the parameters
+1. Open terminal at a folder that you will use for this project
+2. Use the `git clone` command to clone this repository into that folder
+3. Open `Main.py` 
+4. Within the `Main.py` function, you will need to input values for benchmarking() and main() functions in order to plot the figures within those functions.
+5. For benchmarking() function, you can input the following parameters 18.1,0.026,25.6,10.87
+6. For main() function, you will need to input False,True,True,True as the parameters
+7. Run `Main.py` which will produce all the model figures used in the group projects.
