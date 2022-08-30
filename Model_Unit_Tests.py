@@ -40,7 +40,7 @@ def test_2():
     print('Test 2 Passed')
 
 def test_3():
-    ''' Testing edge case where B = 0, keeping remaining parameters the same
+    ''' Testing edge case where B tends towards 0, keeping remaining parameters the same
 
             Parameters:
             -----------
@@ -50,7 +50,7 @@ def test_3():
             --------
             None
     '''
-    analytical_solution, numerical_solution = benchmarking(a, 0, p0, q, False)
+    analytical_solution, numerical_solution = benchmarking(a, 0.001, p0, q, False)
     assert isclose(analytical_solution, numerical_solution, rel_tol=1e-3, abs_tol=0.0)
     print('Test 3 Passed')
 

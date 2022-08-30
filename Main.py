@@ -12,7 +12,7 @@ if __name__ == '__main__':
     from Model_Unit_Tests import *
     test_1()
     test_2()
-    #test_3()
+    test_3()
     test_4()
     test_5()
 
