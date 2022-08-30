@@ -1,11 +1,12 @@
 if __name__ == '__main__':
 
 # Global variables for benchmarking input paramters
-from q_array import *
-a = 18.1
-B = 0.026
-p0 = 10.87
-q = find_q()
+    from q_array import *
+    import statistics
+    a = 18.1
+    B = 0.026
+    p0 = 10.87
+    q = statistics.mean(find_q())
     
 #1. Unit tests
     from Model_Unit_Tests import *
@@ -16,7 +17,7 @@ q = find_q()
     
 # 2. Benchmarking
     from benchmarking import *
-    benchmarking(a, B, q, p0)
+    benchmarking(a, B, q, p0, True)
                   
 # 3. Model Calibration
     from practice import *

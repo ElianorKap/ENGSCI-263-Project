@@ -9,4 +9,4 @@ def find_q():
     return q
 
 if __name__ == "__main__":
-    print(find_q())
+    find_q()

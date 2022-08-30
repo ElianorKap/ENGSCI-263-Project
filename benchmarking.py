@@ -79,7 +79,7 @@ def solve_ode(f, t0, t1, dt, p0, pars):
     # return the time and pressure for numerical solution
     return t, p
 
-def benchmarking(a, B, q, p0):
+def benchmarking(a, B, q, p0, plot = True):
     ''' Compare analytical and numerical solutions.
 
             Parameters:
@@ -92,6 +92,8 @@ def benchmarking(a, B, q, p0):
                 mass flow rate.
             p0 : float
                 Initial value of solution.
+            plot: Bool
+                If True, creates plots of timestep convergence and error analysis
 
             Returns:
             --------
@@ -124,38 +126,39 @@ def benchmarking(a, B, q, p0):
     for i in range(len(x1)):
         y2[i] = -((a*q)*(1-math.e**(-B*x1[i])))/B+p0
     # plot the benchmarking
-    f, ax = plt.subplots(1, 1)
-    ax.plot(x1, y1, 'x', label='numerical solution')
-    ax.plot(x1, y2, 'r-', label='analytical solution')
-    ax.set_ylabel('Pressure,P')
-    ax.set_xlabel('time,t')
-    ax.set_title("benchmark")
-    ax.legend(loc=2)
-    # plot the relative error against the benchmarking
-    f1,ax1 = plt.subplots(1, 1)
-    error = np.zeros(len(x1))
-    for i in range(len(x1)):
-        error[i] = abs(y2[i]-y1[i])/abs(y1[i])
-    ax1.plot(x1, error, 'k.')
-    ax1.set_ylabel('relative error against benchmark')
-    ax1.set_xlabel('t')
-    ax1.set_title("error analysis")
-    # plot the timestep convergence
-    f2, ax2 = plt.subplots(1, 1)
-    con = []
-    thetat = []
-    for i in np.arange(0.1,1,0.05):
-        x3,y3 = solve_ode(fun, 0, 10, i, p0, parm)
-        # record the pressure when (t = 10)
-        con.append(y3[-1])
-        # record the 1/theta(t)
-        thetat.append(1/i)
-    # plot the graph
-    ax2.plot(thetat, con, 'k.')
-    ax2.set_ylabel('P(t=10)')
-    ax2.set_xlabel('1/theta(t)')
-    ax2.set_title("timestep convergence")
-    plt.show()
+    if plot == True:
+        f, ax = plt.subplots(1, 1)
+        ax.plot(x1, y1, 'x', label='numerical solution')
+        ax.plot(x1, y2, 'r-', label='analytical solution')
+        ax.set_ylabel('Pressure,P')
+        ax.set_xlabel('time,t')
+        ax.set_title("benchmark")
+        ax.legend(loc=2)
+        # plot the relative error against the benchmarking
+        f1,ax1 = plt.subplots(1, 1)
+        error = np.zeros(len(x1))
+        for i in range(len(x1)):
+            error[i] = abs(y2[i]-y1[i])/abs(y1[i])
+        ax1.plot(x1, error, 'k.')
+        ax1.set_ylabel('relative error against benchmark')
+        ax1.set_xlabel('t')
+        ax1.set_title("error analysis")
+        # plot the timestep convergence
+        f2, ax2 = plt.subplots(1, 1)
+        con = []
+        thetat = []
+        for i in np.arange(0.1,1,0.05):
+            x3,y3 = solve_ode(fun, 0, 10, i, p0, parm)
+            # record the pressure when (t = 10)
+            con.append(y3[-1])
+            # record the 1/theta(t)
+            thetat.append(1/i)
+        # plot the graph
+        ax2.plot(thetat, con, 'k.')
+        ax2.set_ylabel('P(t=10)')
+        ax2.set_xlabel('1/theta(t)')
+        ax2.set_title("timestep convergence")
+        plt.show()
     analytical_solution = y1[-1]
     numerical_solution = y2[-1]
     return analytical_solution, numerical_solution
