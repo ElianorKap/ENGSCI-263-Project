@@ -2,7 +2,6 @@ if __name__ == '__main__':
 
 # Global variables for benchmarking input paramters
 from q_array import *
-t , p = np.genfromtxt( 'gs_pres.txt' , delimiter=',', skip_header = 1 ).T
 a = 18.1
 B = 0.026
 p0 = 10.87
@@ -17,7 +16,7 @@ q = find_q()
     
 # 2. Benchmarking
     from benchmarking import *
-    benchmarking(t, p, q, a, B, p0)
+    benchmarking(a, B, q, p0)
                   
 # 3. Model Calibration
     from practice import *
