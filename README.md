@@ -16,7 +16,7 @@ this demand.
 We will perform unit testing, benchmarking and calibration to ensure our model matches the actual underlying process of the pressure change and gas 
 leakage of the Natural Gas Storage at Ahuroa, Taranaki. We will then use this model to make accurate predictions while considering the uncertainty of 
 our data. Also, provide recommendations for FlexGas to make the most financially optimal decision while eliminating or reducing gas leakage to a minimum 
-to prevent local farmer's properties from catching fire. 
+to prevent local farmer's properties from catching fire. This repository will contain functions that produce all the figures needed to complete the required analysis.
 
 ## Key Tasks
 
@@ -48,7 +48,7 @@ Others
 * `practice.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - practice function
 
 
-## Instructions 
+## Instructions  
 
 
 1. Run Main.py which will produce all the model figures in the group projects.
