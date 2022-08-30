@@ -1,6 +1,8 @@
 # ENGSCI 263 Project: Gas Storage
 
+
 ## Overview
+
 
 FlexGas have retained us to conduct a computer modelling study of the Natural Gas Storage at Ahuroa, Taranaki, that measures the pressure changes, 
 current and future gas leakage and the rate at which the 6 PJ of cushion gas (current storage) is being eroded. 
@@ -21,26 +23,35 @@ to prevent local farmer's properties from catching fire.
 This repository will contain python functions to perform the following tasks:
 
 * Main
-  * Main.py &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- this function will produce all the model figures in the group projects
+  * `Main.py` &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;- this function will produce all the model figures in the group projects
 * Unit Testing
-  * Model_Unit_Testing.py&nbsp;- this function will compare the output of a function to a worked solution
+  * `Model_Unit_Testing.py`&nbsp;&ensp;&ensp;- this function will compare the output of a function to a worked solution
 * Benchmarking
-  * benchmarking.py&emsp;&emsp;&emsp;- this function will solve the ODE analytically under a simplified condition and verify the numerical solver by 
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;returning a similar solution for the same parameters
+  * `benchmarking.py`&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;- this function will solve the ODE analytically under a simplified condition and verify the numerical &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;&nbsp;solver by returning a similar solution for the same parameters
 * Calibration
-  * lab2_curve_fitting.py&emsp;&nbsp;- this function will help us choose good parameter values for the model such that it is a good 
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;approximation of reality
-  * task2.py&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; - this function is used to test the sensitivity of the parameter and help us get a rough idea 
-  of a good set of &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;parameter values
+  * `lab2_curve_fitting.py`&emsp;&nbsp;- this function will help us choose good parameter values for the model such that it is a good 
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&ensp;&nbsp;approximation of reality
+  * `task2.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- this function is used to test the sensitivity of the parameter and help us get a rough 
+  idea of a good &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&emsp;set of parameter values
 * Prediction 
-  * JuneUncertainty.py&emsp;&emsp;&nbsp;- this function will perform calculation and generate plots for prediction based on different scenario such 
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;as initial gas leakage and doubling the pressure capacity etc
+  * `JuneUncertainty.py`&emsp;&emsp;&nbsp;&ensp;- this function will perform calculation and generate plots for prediction based on different  
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;&ensp;scenario such as initial gas leakage and doubling the pressure capacity etc
 * Uncertainty
-  * JuneUncertainty.py&emsp;&emsp; - this function will quantify and plot the uncertainty of the model as well as constructing a future forecast
+  * `JuneUncertainty.py`&emsp;&emsp;&nbsp; - this function will quantify and plot the uncertainty of the model as well as constructing a future 
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&emsp;forecast
 
 Others
 
-* June_sdlab_functions.py&emsp;&nbsp; - this function is used to calculate the interpolation values
-* gs_mass.txt&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; - historical mass data file
-* gs_pres.txt&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; - historical pressure data file
-* practice.py&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; - practice function
+* `June_sdlab_functions.py`&emsp;&ensp;&nbsp; - this function is used to calculate the interpolation values
+* `gs_mass.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&ensp;&nbsp; - historical mass data file
+* `gs_pres.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - historical pressure data file
+* `practice.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - practice function
+
+
+## Instructions 
+
+
+1. Run Main.py which will produce all the model figures in the group projects.
+2. Within the `Main.py` function, you will need to input values for benchmarking() and main() functions in order to plot the figures within those functions.
+3. For benchmarking() function, you can input the following parameters 18.1,0.026,25.6,10.87
+4. For main() function, you will need to input False,True,True,True as the parameters
