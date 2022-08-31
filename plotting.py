@@ -187,9 +187,10 @@ def plot_samples2D(a, b, P, samples):
     A, B = np.meshgrid(a, b, indexing='ij')
     ax1.plot_surface(A, B, P, rstride=1, cstride=1,cmap=cm.Oranges, lw = 0.5)	# show surface
     
-    tp,po = np.genfromtxt('wk_pressure_history.csv', delimiter = ',')[:28,:].T
+    tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',', skip_header=1).T
     v = 2
-    s = np.array([np.sum((solve_lpm(tp,a,b)-po)**2)/v for a,b in samples])
+    t, pm = solve_lpm(lpm, 2009, 2019, 0.25, 25.16, [10.87, 18.1, 0.026])
+    s = np.array([np.sum((pm-po)**2)/v for a,b in samples])
     p = np.exp(-s/2.)
     p = p/np.max(p)*np.max(P)*1.2
         

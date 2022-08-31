@@ -31,7 +31,7 @@ def grid_search():
 	b_best = 0.026
 
 	# number of values considered for each parameter within a given interval
-	N = 51	
+	N = 51
 
 	# vectors of parameter values
 	a = np.linspace(a_best/2,a_best*1.5, N)
@@ -44,7 +44,7 @@ def grid_search():
 	S = np.zeros(A.shape)
 
 	# data for calibration
-	tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',')[:21,:].T
+	tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',', skip_header=1).T
 
 	# error variance - 2 bar
 	v = 1.
@@ -55,9 +55,9 @@ def grid_search():
 			# 3. compute the sum of squares objective function at each value 
 			#pm =
 			#S[i,j] =
-			t, pm = solve_lpm(lpm, 2009, 2019, 0.1, 25.16, [10.87, a[i], b[j]])
+			t, pm = solve_lpm(lpm, 2009, 2019, 0.25, 25.16, [10.87, a[i], b[j]])
 			p_model = [pm[i] for i in range(0,len(t)+1, 5 )]
-			S[i,j] = np.sum((po-p_model)**2)/v
+			S[i,j] = np.sum((po-pm)**2)/v
 
 	# 4. compute the posterior
 	#P=
