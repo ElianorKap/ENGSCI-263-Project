@@ -5,8 +5,8 @@
 
 # import modules and functions
 import numpy as np
-from lumped_parameter_model import *
-from plotting import *
+from ellie_lumped_parameter_model import *
+from ellie_plotting import *
 
 def grid_search():
 	''' This function implements a grid search to compute the posterior over a and b.
@@ -31,7 +31,7 @@ def grid_search():
 	b_best = 0.026
 
 	# number of values considered for each parameter within a given interval
-	N = 51	
+	N = 51
 
 	# vectors of parameter values
 	a = np.linspace(a_best/2,a_best*1.5, N)
@@ -44,10 +44,10 @@ def grid_search():
 	S = np.zeros(A.shape)
 
 	# data for calibration
-	tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',')[:21,:].T
+	tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',', skip_header = 1).T
 
 	# error variance - 2 bar
-	v = 1.
+	v = 0.05
 
 	# grid search algorithm
 	for i in range(len(a)):
@@ -55,9 +55,8 @@ def grid_search():
 			# 3. compute the sum of squares objective function at each value 
 			#pm =
 			#S[i,j] =
-			t, pm = solve_lpm(lpm, 2009, 2019, 0.1, 25.16, [10.87, a[i], b[j]])
-			p_model = [pm[i] for i in range(0,len(t)+1, 5 )]
-			S[i,j] = np.sum((po-p_model)**2)/v
+			t, pm = solve_lpm(lpm, 2009, 2019, 0.25, 25.16, [10.87, a[i], b[j]])
+			S[i,j] = np.sum((po-pm)**2)/v
 
 	# 4. compute the posterior
 	#P=
@@ -157,12 +156,12 @@ def model_ensemble(samples):
 	ax.plot([],[],'k-', lw=0.5,alpha=0.4, label='model ensemble')
 
 	# get the data
-	tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',').T
+	tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',', skip_header = 1).T
 	ax.axvline(2009, color='b', linestyle=':', label='calibration/forecast')
 	
 	# 4. plot Wairakei data as error bars
 	# *hint* see TASK 1 for appropriate plotting commands
-	v = 2.
+	v = 0.05
 	ax.errorbar(tp,po,yerr=v,fmt='ro', label='data')
 	ax.set_xlabel('time')
 	ax.set_ylabel('pressure')

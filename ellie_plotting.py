@@ -15,7 +15,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
-from lumped_parameter_model import *
+from ellie_lumped_parameter_model import *
 
 # set font size
 text_size = 16.
@@ -42,7 +42,7 @@ def plot_lmp(lmp, theta):
     year_end_calib = 1976.	# interval used for calibration: observations till this date
     
     # load pressure history
-    table = np.loadtxt(open('pressure_history.csv','rb'), delimiter = ',')
+    table = np.loadtxt(open('gs_pres.txt','rb'), delimiter = ',', skip_header = 1)
     t = table[:,0]		# time vector [years]
     p_real = table[:,1]	# observed reservoir pressure vector [bars]
     imax = np.argmin(abs(t-year_end_calib))	# index of the final year used in calibration
@@ -187,9 +187,10 @@ def plot_samples2D(a, b, P, samples):
     A, B = np.meshgrid(a, b, indexing='ij')
     ax1.plot_surface(A, B, P, rstride=1, cstride=1,cmap=cm.Oranges, lw = 0.5)	# show surface
     
-    tp,po = np.genfromtxt('wk_pressure_history.csv', delimiter = ',')[:28,:].T
-    v = 2
-    s = np.array([np.sum((solve_lpm(tp,a,b)-po)**2)/v for a,b in samples])
+    tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',', skip_header = 1).T
+    v = 0.05
+    s = np.array([np.sum((solve_lpm(lpm, 2009, 2019, 0.25, 25.16, [10.87, a, b])-po)**2)/v for a,b in samples])
+
     p = np.exp(-s/2.)
     p = p/np.max(p)*np.max(P)*1.2
         
@@ -230,8 +231,8 @@ def plot_samples3D(a, b, c, P, samples):
         for k in range(len(c)):
             Pbc[j][k] = sum([P[i][j][k] for i in range(len(a))])
 
-    tp,po = np.genfromtxt('wk_pressure_history.csv', delimiter = ',')[:28,:].T
-    v = 2
+    tp,po = np.genfromtxt('wk_pressure_history.csv', delimiter = ',', skip_header = 1).T
+    v = 0.05
     s = np.array([np.sum((solve_lpm(tp,a,b,c)-po)**2)/v for a,b,c in samples])
     p = np.exp(-s/2.)
     p = p/np.max(p)*np.max(P)*1.2

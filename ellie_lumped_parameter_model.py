@@ -14,8 +14,8 @@
 import numpy as np
 
 # global variables - observations
-tq,q = np.genfromtxt('gs_pres.txt', delimiter = ',').T
-tp,p = np.genfromtxt('gs_mass.txt', delimiter = ',').T
+tq,q = np.genfromtxt('gs_pres.txt', delimiter = ',', skip_header = 1).T
+tp,p = np.genfromtxt('gs_mass.txt', delimiter = ',', skip_header = 1).T
 dqdt = 0.*q                 # allocate derivative vector
 dqdt[1:-1] = (q[2:]-q[:-2])/(tq[2:]-tq[:-2])    # central differences
 dqdt[0] = (q[1]-q[0])/(tq[1]-tq[0])             # forward difference
