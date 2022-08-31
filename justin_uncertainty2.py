@@ -152,8 +152,25 @@ def model_ensemble(samples):
 		#ax.plot(
 		#*hint* use lw= and alpha= to set linewidth and transparency
 		t, pm = solve_lpm(lpm, 2009, 2019, 0.1, 25.16, [10.87, a, b])
+		t2 = t+10
+		pm2 = pm
+		t, pm3 = solve_lpm(lpm, 2009, 2019, 0.1, 25.16, [10.87, a, b], scale = 2.)
+		t, pm4 = solve_lpm(lpm, 2009, 2019, 0.1, 25.16, [10.87, a, b], scale = 1.2)
+		t, pm5 = solve_lpm(lpm, 2009, 2019, 0.1, 25.16, [10.87, a, b], scale = 1.5)
+
+
 		ax.plot(t,pm,'k-', lw=0.25,alpha=0.2)
+		ax.plot(t2, pm2, 'k-', lw=0.25, alpha=0.2)
+		ax.plot(t2, pm3, 'b-', lw=0.25, alpha=0.2)
+		ax.plot(t2, pm4, 'm-', lw=0.25, alpha=0.2)
+		ax.plot(t2, pm5, 'y-', lw=0.25, alpha=0.2)
+
+
 	ax.plot([],[],'k-', lw=0.5,alpha=0.4, label='model ensemble')
+	ax.plot([],[],'b-', lw=0.5,alpha=0.4, label='scale: 2')
+	ax.plot([],[],'m-', lw=0.5,alpha=0.4, label='scale: 1.2')
+	ax.plot([],[],'y-', lw=0.5,alpha=0.4, label='scale: 1.5')
+
 
 	# get the data
 	tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',', skip_header = 1).T

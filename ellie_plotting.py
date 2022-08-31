@@ -189,7 +189,7 @@ def plot_samples2D(a, b, P, samples):
     
     tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',', skip_header = 1).T
     v = 0.05
-    s = np.array([np.sum((solve_lpm(lpm, 2009, 2019, 0.25, 25.16, [10.87, a, b])-po)**2)/v for a,b in samples])
+    s = np.array([np.sum((solve_lpm(lpm, 2009, 2019, 0.25, 25.16, [10.87, a, b])[1]-po)**2)/v for a,b in samples])
 
     p = np.exp(-s/2.)
     p = p/np.max(p)*np.max(P)*1.2
@@ -231,9 +231,9 @@ def plot_samples3D(a, b, c, P, samples):
         for k in range(len(c)):
             Pbc[j][k] = sum([P[i][j][k] for i in range(len(a))])
 
-    tp,po = np.genfromtxt('wk_pressure_history.csv', delimiter = ',', skip_header = 1).T
+    tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',', skip_header = 1).T
     v = 0.05
-    s = np.array([np.sum((solve_lpm(tp,a,b,c)-po)**2)/v for a,b,c in samples])
+    s = np.array([np.sum((solve_lpm(tp,a,b,c)-po)**2)[1]/v for a,b,c in samples])
     p = np.exp(-s/2.)
     p = p/np.max(p)*np.max(P)*1.2
 
