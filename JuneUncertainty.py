@@ -95,7 +95,7 @@ def gasLeakage(Time, Pres, Overpressure, B):
     # returns array of gas leakage values
     return dleakage
 
-def main(Plot1,Plot2, Plot3, Plot4):
+def main(Plot1=False,Plot2=False, Plot3=False, Plot4=False, Plot5=False):
     '''
     Generates plots and calculates values for prediction and uncertainty for pressure model
 
@@ -286,11 +286,21 @@ def main(Plot1,Plot2, Plot3, Plot4):
         plt.show()
         print(cumulLeak1[-1] * 10. ** 5 / (a))
 
-    # todo - analysis for scaling between 1-2
     # todo - future predictions? add previous mass flow onto end
+    if Plot5:
+        fig5, ax5 = plt.subplots()
+        for i in [1.,1.2,1.4,1.45,1.5,1.6,1.8]:
+            modelpTime, modelpP = solve_ode_kettle(ode_model, 2009., 2019., 0.1, x0, pars, scale=i)
+            dleakagep = gasLeakage(modelpTime, modelpP, overpressure, b)
+            cumulLeakp = integralFunc(modelpTime, dleakagep)
+            ax5.plot(modelpTime, cumulLeakp, label='Cumulative Gas Leakage s={}'.format(i))
+        ax5.legend()
+        plt.xlabel('Time (Years)')
+        plt.ylabel('Pressure (MPa)')
+        plt.show()
 
     return
 
 if __name__ == '__main__':
-    main(False, False, False, False)
+    main(False, False, False, False, True)
 
