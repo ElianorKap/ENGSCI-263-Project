@@ -27,18 +27,22 @@ This repository will contain python functions to perform the following tasks:
 * Unit Testing
   * `Model_Unit_Testing.py`&nbsp;&ensp;&ensp;- this function will compare the output of a function to a worked solution
 * Benchmarking
-  * `benchmarking.py`&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;- this function will solve the ODE analytically under a simplified condition and verify the numerical &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;&nbsp;solver by returning a similar solution for the same parameters
+  * `benchmarking.py`&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;- this function will solve the ODE analytically under a simplified condition and verify the
+  numerical solver by returning a similar solution for the same parameters
 * Calibration
-  * `lab2_curve_fitting.py`&emsp;&nbsp;- this function will help us choose good parameter values for the model such that it is a good 
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&ensp;&nbsp;approximation of reality
+  * `lab2_curve_fitting.py`&emsp;&nbsp;- this function will help us choose good parameter values for the model such that it is a good approximation of
+  reality
   * `task2.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- this function is used to test the sensitivity of the parameter and help us get a rough 
-  idea of a good &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&emsp;set of parameter values
+  set of parameter value
 * Prediction 
-  * `JuneUncertainty.py`&emsp;&emsp;&nbsp;&ensp;- this function will perform calculation and generate plots for prediction based on different  
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;&ensp;scenario such as initial gas leakage and doubling the pressure capacity etc
+  * `JuneUncertainty.py`&emsp;&emsp;&nbsp;&ensp;- this function will perform calculation and generate plots for prediction based on different scenario 
+  such as initial gas leakage and doubling the pressure capacity etc
 * Uncertainty
-  * `JuneUncertainty.py`&emsp;&emsp;&nbsp; - this function will quantify and plot the uncertainty of the model as well as constructing a future 
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&emsp;forecast
+  * `ellie_justin_uncertainty.py` - this function will also quantify and plot the
+  uncertainty of the model as well as constructing a future forecast
+  * `ellie_lumped_parameter_model.py` -
+  * `ellie_plotting.py`&emsp;&emsp;&nbsp;&ensp;&nbsp; - 
+
 
 Others
 
@@ -46,7 +50,7 @@ Others
 * `gs_mass.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&ensp;&nbsp; - historical mass data file
 * `gs_pres.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - historical pressure data file
 * `practice.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - practice function
-
+* `modelFitImproved.png`&emsp;&emsp;&emsp;&nbsp; - image of the improved model fit
 
 ## Instructions  
 
