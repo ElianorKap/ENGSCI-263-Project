@@ -7,6 +7,7 @@
 import numpy as np
 from ellie_lumped_parameter_model import *
 from ellie_plotting import *
+from Uncertainty import *
 
 def grid_search():
 	''' This function implements a grid search to compute the posterior over a and b.
@@ -145,6 +146,7 @@ def model_ensemble(samples):
 	# 2. create a figure and axes (see TASK 1)
 	#f,ax =
 	f,ax = plt.subplots(1,1)
+	f,ax2 = plt.subplots(1,2)
 
 	# 3. for each sample, solve and plot the model  (see TASK 1)
 	for a,b in samples:
@@ -165,11 +167,14 @@ def model_ensemble(samples):
 		ax.plot(t2, pm4, 'm-', lw=0.25, alpha=0.2)
 		ax.plot(t2, pm5, 'y-', lw=0.25, alpha=0.2)
 
-
 	ax.plot([],[],'k-', lw=0.5,alpha=0.4, label='model ensemble')
 	ax.plot([],[],'b-', lw=0.5,alpha=0.4, label='scale: 2')
 	ax.plot([],[],'m-', lw=0.5,alpha=0.4, label='scale: 1.2')
 	ax.plot([],[],'y-', lw=0.5,alpha=0.4, label='scale: 1.5')
+
+	cumulleak1 = main()
+	ndarray.tolist(cumulleak1)
+	ax2.plot(t,cumulleak1,'k-', lw=0.5,alpha=0.4, label='model ensemble')
 
 
 	# get the data

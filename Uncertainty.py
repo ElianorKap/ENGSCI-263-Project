@@ -300,11 +300,11 @@ def main(Plot1=False,Plot2=False, Plot3=False, Plot4=False, Plot5=False):
         plt.xlabel('Time (Years)')
         plt.ylabel('Pressure (MPa)')
         plt.show()
+    print(cumulLeak1)
 
     return cumulLeak1
 
 if __name__ == '__main__':
     main(False, True, False, False, False)
     MassTime1, MassHist = np.genfromtxt('gs_mass.txt', delimiter=',', skip_header=1).T
-    print(sum(MassHist))
 
