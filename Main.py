@@ -20,7 +20,10 @@ if __name__ == '__main__':
     from benchmarking import *
     benchmarking(a, B, q, p0, True)
                   
-# 3. Model Calibration
+# 3.0 Model Calibration -> Pre manual tweaks
+    from lab2_curve_fitting import *
+    plot_kettle_model() 
+# 3.5 Model Calibration -> Post manual tweaking
     from practice import *
     plot_kettle_model() 
     

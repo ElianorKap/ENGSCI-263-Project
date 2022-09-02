@@ -102,6 +102,7 @@ def objective(pars):
         obj += (pressure[i]-p_model[i])**2		# add weighted squared enthalpy difference
 
     return obj
+
 def plot_kettle_model():
     ''' Plot the kettle LPM over top of the data.
 
@@ -162,7 +163,7 @@ def plot_kettle_model():
     ax.set_xlabel('time, $t$ [s]')
 
     ax.set_ylabel('temperature, $T$ [$^{\circ}$C]')
-
+    ax.set_title("Our Model initial parameter estimate improvement using a curve fitting function")
     ax.legend()
     plt.show()
 

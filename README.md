@@ -30,8 +30,10 @@ This repository will contain python functions to perform the following tasks:
   * `benchmarking.py`&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;- this function will solve the ODE analytically under a simplified condition and verify the
   numerical solver by returning a similar solution for the same parameters
 * Calibration
-  * `lab2_curve_fitting.py`&emsp;&nbsp;- this function will help us choose good parameter values for the model such that it is a good approximation of
+  * `lab2_curve_fitting.py`&emsp;&nbsp;- this contains a curve fitting function which will help us choose good parameter values for the model such that it is a good approximation of
   reality
+  * `practice.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - Generates plot of our finalised parameter estimates upon having tweaked curve fitting output.
+
   * `task2.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- this function is used to test the sensitivity of the parameter and help us get a rough 
   set of parameter value
 * Prediction 
@@ -49,7 +51,6 @@ Others
 * `June_sdlab_functions.py`&emsp;&ensp;&nbsp; - this function is used to calculate the interpolation values
 * `gs_mass.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&ensp;&nbsp; - historical mass data file
 * `gs_pres.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - historical pressure data file
-* `practice.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - practice function
 * `modelFitImproved.png`&emsp;&emsp;&emsp;&nbsp; - image of the improved model fit
 
 ## Instructions  

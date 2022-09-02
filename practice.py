@@ -116,7 +116,7 @@ def plot_kettle_model():
     ax.set_xlabel('time, $t$ [s]')
 
     ax.set_ylabel('Pressure, $MPa$')
-
+    ax.set_title("Our final parameter estimates after manual tweaks which improved upon curve fitting output")
     ax.legend()
 
     # p_model = [p[i] for i in range(0,len(t)+1, 5 )] 
