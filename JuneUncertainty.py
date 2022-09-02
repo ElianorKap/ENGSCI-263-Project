@@ -299,8 +299,31 @@ def main(Plot1=False,Plot2=False, Plot3=False, Plot4=False, Plot5=False):
         plt.ylabel('Pressure (MPa)')
         plt.show()
 
+        fig6, ax6 = plt.subplots()
+        modelATime, modelAP = solve_ode_kettle(ode_model, 2009., 2019., 0.1, x0, pars, scale=1.2)
+        dleakageA = gasLeakage(modelATime, modelAP, overpressure, b)
+        cumulLeakA = integralFunc(modelATime, dleakageA)
+        cumulLeakA = cumulLeakA + cumulLeak1[-1]
+        modelBTime, modelBP = solve_ode_kettle(ode_model, 2009., 2019., 0.1, x0, pars, scale=1.5)
+        dleakageB = gasLeakage(modelBTime, modelBP, overpressure, b)
+        cumulLeakB = integralFunc(modelBTime, dleakageB)
+        cumulLeakB = cumulLeakB + cumulLeak1[-1]
+        cumulLeakF1 = [*cumulLeak1,*(np.array(cumulLeak1)+cumulLeak1[-1])]
+        cumulLeakF2 = [*cumulLeak1,*(np.array(cumulLeakA))]
+        cumulLeakF3 = [*cumulLeak1,*(np.array(cumulLeakB))]
+        cumulLeakF4 = [*cumulLeak1,*(np.array(cumulLeak2)+cumulLeak1[-1])]
+        modelFTime = [*model1Time,*(np.array(model1Time)+model1Time[-1]-model1Time[0])]
+        ax6.plot(modelFTime, cumulLeakF1, label='Cumulative Gas Leakage s=1')
+        ax6.plot(modelFTime, cumulLeakF2, label='Cumulative Gas Leakage s=1.2')
+        ax6.plot(modelFTime, cumulLeakF3, label='Cumulative Gas Leakage s=1.5')
+        ax6.plot(modelFTime, cumulLeakF4, label='Cumulative Gas Leakage s=2')
+        ax6.legend()
+        plt.xlabel('Time (Years)')
+        plt.ylabel('Pressure (MPa)')
+        plt.show()
+
     return
 
 if __name__ == '__main__':
-    main(False, False, True, False, False)
+    main(False, False, False, False, True)
 
