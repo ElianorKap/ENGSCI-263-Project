@@ -44,6 +44,8 @@ This repository will contain python functions to perform the following tasks:
   uncertainty of the model as well as constructing a future forecast
   * `ellie_lumped_parameter_model.py` -
   * `ellie_plotting.py`&emsp;&emsp;&nbsp;&ensp;&nbsp; - 
+  * `Uncertainty.py` - this function will also calculate values and generate plot for prediction and uncertainty
+  * `plotting2.py` - this function is used to create the plots for uncertainty
 
 
 Others
@@ -52,6 +54,8 @@ Others
 * `gs_mass.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&ensp;&nbsp; - historical mass data file
 * `gs_pres.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - historical pressure data file
 * `modelFitImproved.png`&emsp;&emsp;&emsp;&nbsp; - image of the improved model fit
+* `justin_uncertainty2.py` - replica of `ellie_justin_uncertainty.py`
+* `lmp2.py` - replica of `ellie_lumped_parameter_model.py`
 
 ## Instructions  
 
