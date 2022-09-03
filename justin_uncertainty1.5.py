@@ -65,7 +65,8 @@ def grid_search():
 	return a,b,P
 
 def construct_samples(a,b,P,N_samples):
-	''' Constructs samples from a multivariate normal distribution fitted to the data.
+	''' This function constructs samples from a multivariate normal distribution
+	    fitted to the data.
 
 		Parameters:
 		-----------
@@ -90,7 +91,7 @@ def construct_samples(a,b,P,N_samples):
 	A, B = np.meshgrid(a,b,indexing='ij')
 	mean, covariance = fit_mvn([A,B], P)
 
-	# Create samples using numpy function multivariate_normal
+	# Create samples using numpy function multivariate_normal (Google it)
 	samples = np.random.multivariate_normal(mean, covariance, N_samples)
 
 	# Plot samples and predictions
@@ -107,23 +108,32 @@ def model_ensemble(samples):
 		samples : array-like
 			parameter samples from the multivariate normal
 	'''
+	# **to do**
+	# Run your parameter samples through the model and plot the predictions.
 
-	# Setting time vector to evaluate model between
+	# 1. choose a time vector to evaluate your model between 1953 and 2012
+	# t =
 	t = np.linspace(2009, 2019, 101)
 
+	# 2. create a figure and axes (see TASK 1)
+	# f,ax =
 	f, ax = plt.subplots(1, 1)
 
-	# For each sample, the model is solved and plotted
+	# 3. for each sample, solve and plot the model  (see TASK 1)
 	for a, b in samples:
+		# pm=
+		# ax.plot(
+		# *hint* use lw= and alpha= to set linewidth and transparency
 		t, pm = solve_lpm(lpm, 2009, 2019, 0.1, 25.16, [10.87, a, b])
 		ax.plot(t, pm, 'k-', lw=0.25, alpha=0.2)
 	ax.plot([], [], 'k-', lw=0.5, alpha=0.4, label='model ensemble')
 
-	# Extracting historical data
+	# get the data
 	tp, po = np.genfromtxt('gs_pres.txt', delimiter=',', skip_header=1).T
 	ax.axhline(25.16, color='g', linestyle=':', label='overpressure')
 
-	# Plotting data as error bars
+	# 4. plot Wairakei data as error bars
+	# *hint* see TASK 1 for appropriate plotting commands
 	v = 0.05
 	ax.errorbar(tp, po, yerr=v, fmt='ro', label='data')
 	ax.set_xlabel('Time (years)')
@@ -132,7 +142,7 @@ def model_ensemble(samples):
 	plt.show()
 
 def model_ensemble_with_forecasts(samples):
-	''' Finds the pressure at different capacities for given parameter samples, and plots the results
+	''' Runs the model for given parameter samples and plots the results.
 
 		Parameters:
 		-----------
@@ -141,11 +151,9 @@ def model_ensemble_with_forecasts(samples):
 	'''
 
 	fig1, ax1 = plt.subplots()
-	
-	# Extracting historical data
 	tp,po = np.genfromtxt('gs_pres.txt', delimiter = ',', skip_header = 1).T
 
-	# For each sample, solving and plotting model at current capacity
+	# For each sample, solve and plot the model for each scale
 	for a,b in samples:
 		t1, pm = solve_lpm(lpm, 2009, 2029, 0.1, 25.16, [10.87, a, b])
 		t1, pm3 = solve_lpm(lpm, 2009, 2029, 0.1, 25.16, [10.87, a, b], scale = 2.)
@@ -178,8 +186,7 @@ def model_ensemble_with_forecasts(samples):
 	plt.show()
 
 def leakage_forecasting(samples):
-	''' Finds the cumulative pressure change at different capacities for given parameter samples,
-	and plots forecasted results.
+	''' Runs the model for given parameter samples and plots the results.
 
 		Parameters:
 		-----------
@@ -190,83 +197,51 @@ def leakage_forecasting(samples):
 	fig2, ax2 = plt.subplots()
 	overpressure = 25.16
 
-	cumulLeak1 = list()
-	count = 0
+	# For each sample, solve and plot the model for each scale
+	for a,b in samples:
+		t1, pm = solve_lpm(lpm, 2009, 2029, 0.1, 25.16, [10.87, a, b])
+		t1, pm3 = solve_lpm(lpm, 2019, 2029, 0.1, 25.16, [10.87, a, b], scale = 2.) #blueplot
+		t1, pm4 = solve_lpm(lpm, 2019, 2029, 0.1, 25.16, [10.87, a, b], scale = 1.2) #magentaplot
+		t1, pm5 = solve_lpm(lpm, 2019, 2029, 0.1, 25.16, [10.87, a, b], scale = 1.5) #yellowplot
 
-	# For each sample, solving model and plotting cumulative pressure change at current capacity
+		timelength = len(t1)
+		middle_index = int(timelength/2)
 
-	for a, b in samples:
-		t, pm = solve_lpm(lpm, 2009, 2029, 0.1, 25.16, [10.87, a, b])
-		t = t.tolist()
-		last_index = t.index(2019)
+		dleakage1 = gasLeakage(t1, pm, overpressure, b)
+		cumulLeak1 = integralFunc(t1, dleakage1)
+		cumulLeak1 = np.array(cumulLeak1.tolist())
 
-		# Solving cumulative pressure change
-		dleakage1 = gasLeakage(t, pm, overpressure, b)
-		listvals = integralFunc(t, dleakage1)
-		listvals = list(listvals)
-		
-		cumulLeak1.append(listvals)
-		ax2.plot(t, cumulLeak1[count], 'k-', lw=0.25, alpha=0.2)
-		
-		count +=1
-
-	# Finding minimum possible pressure at the end of historical period 
-	minval = 0
-	for i in range(count):
-		if cumulLeak1[i][last_index] < minval:
-			minval = cumulLeak1[i][last_index]
-			
-	# Finding maximum possible pressure at the end of historical period
-	maxval = -100
-	for i in range(count):
-		if cumulLeak1[i][last_index] > maxval:
-			maxval = cumulLeak1[i][last_index]
-
-	# Finding expected pressure at the end of historical period
-	expected_p = (minval + minval)/2
-			
-	# For each sample, solving model and plotting cumulative pressure change at different capacities
-	for a, b in samples:
-		count += 1
-
-		t1, pm3 = solve_lpm(lpm, 2009, 2019, 0.1, 25.16, [10.87, a, b], scale=2.)  
-		t1, pm4 = solve_lpm(lpm, 2009, 2019, 0.1, 25.16, [10.87, a, b], scale=1.2)  
-		t1, pm5 = solve_lpm(lpm, 2009, 2019, 0.1, 25.16, [10.87, a, b], scale=1.5)  
-
-		# Solving cumulative pressure change at scale = 2
 		dleakage3 = gasLeakage(t1, pm3, overpressure, b)
 		cumulLeak3 = integralFunc(t1, dleakage3)
 		cumulLeak3 = cumulLeak3.tolist()
-		cumulLeak3 = [x - .0285 for x in cumulLeak3]
+		cumulLeak3 = [x + 0.4 for x in cumulLeak3]
 
-		# Solving cumulative pressure change at scale = 1.2
 		dleakage4 = gasLeakage(t1, pm4, overpressure, b)
 		cumulLeak4 = integralFunc(t1, dleakage4)
 		cumulLeak4 = cumulLeak4.tolist()
-		cumulLeak4 = [x - .0285 for x in cumulLeak4]
+		cumulLeak4 = [x + 0.036 for x in cumulLeak4]
 
-		# Solving cumulative pressure change at scale = 1.5
 		dleakage5 = gasLeakage(t1, pm5, overpressure, b)
 		cumulLeak5 = integralFunc(t1, dleakage5)
-		cumulLeak5 = [x - expected_p for x in cumulLeak5]
-		t1 = [x + 10 for x in t1]
+		cumulLeak5 = cumulLeak5.tolist()
+		cumulLeak5 = [x + 0.12 for x in cumulLeak5]
 
-		# Plotting cumulative pressure if the variation of pressure is within the variation at current capacity
-		if cumulLeak3[0] < maxval and cumulLeak3[0] > minval :
-			ax2.plot(t1, cumulLeak3, 'b-', lw=0.25, alpha=0.2)
-		if cumulLeak4[0] < maxval and cumulLeak4[0] > minval:
-			ax2.plot(t1, cumulLeak4, 'r-', lw=0.25, alpha=0.2)
-		if cumulLeak5[0] < maxval and cumulLeak5[0] > minval:
-			ax2.plot(t1, cumulLeak5, 'g-', lw=0.25, alpha=0.2)
+		# ax2.plot(t1,cumulLeak1,'k-', lw=0.25,alpha=0.2)
+		# ax2.plot(t1[middle_index:],cumulLeak3[middle_index:],'b-', lw=0.25,alpha=0.2)
+		# ax2.plot(t1[middle_index:],cumulLeak4[middle_index:],'m-', lw=0.25,alpha=0.2)
+		# ax2.plot(t1[middle_index:],cumulLeak5[middle_index:],'y-', lw=0.25,alpha=0.2)
 
-	# Plotting cumulative pressure change
+		ax2.plot(t1, cumulLeak1, 'k-', lw=0.25, alpha=0.2)
+		ax2.plot(t1, cumulLeak3, 'b-', lw=0.25, alpha=0.2)
+		ax2.plot(t1, cumulLeak4, 'm-', lw=0.25, alpha=0.2)
+		ax2.plot(t1, cumulLeak5, 'y-', lw=0.25, alpha=0.2)
+
 	ax2.plot([],[],'k-', lw=0.5,alpha=0.4, label='model ensemble')
 	ax2.plot([],[],'b-', lw=0.5,alpha=0.4, label='scale: 2')
-	ax2.plot([],[],'r-', lw=0.5,alpha=0.4, label='scale: 1.2')
-	ax2.plot([],[],'g-', lw=0.5,alpha=0.4, label='scale: 1.5')
+	ax2.plot([],[],'m-', lw=0.5,alpha=0.4, label='scale: 1.2')
+	ax2.plot([],[],'y-', lw=0.5,alpha=0.4, label='scale: 1.5')
 	ax2.axvline(2019, color='b', linestyle=':', label='calibration/forecast')
 
-	# Setting axes title and labels
 	ax2.set_title('Pressure change in resevoir due to Methane Leakage')
 	ax2.set_xlabel('Time (years)')
 	ax2.set_ylabel('Pressure (MPa)')
@@ -276,16 +251,10 @@ def leakage_forecasting(samples):
 	plt.show()
 
 def plot_histograms(samples):
-	''' Plots frequency density distributions for given parameter values.
-
-		Parameters:
-		-----------
-		samples : array-like
-			parameter samples from the multivariate normal
-	'''
 
 	plt.rcParams["figure.figsize"] = [7.50, 3.50]
 	plt.rcParams["figure.autolayout"] = True
+
 	fig3, ax3 = plt.subplots()
 
 	# Extracting parameter a samples from the multivariate normal
@@ -305,7 +274,7 @@ def plot_histograms(samples):
 	ax3.axvline(lower[0], color='r', linestyle=':')
 	ax3.axvline(upper[0], color='r', linestyle=':')
 
-	# PLotting axes title and labels
+	# PLotting axes title and legend
 	ax3.set_title("Frequency Density plot for Parameter a")
 	ax3.set_xlabel('Parameter a')
 	ax3.set_ylabel('Frequency density')
@@ -338,12 +307,12 @@ def plot_histograms(samples):
 if __name__=="__main__":
 
 	a,b,posterior = grid_search()
-	N = 1000
+	N = 50
 	samples = construct_samples(a, b, posterior, N)
 
 	plot_histograms(samples)
-	model_ensemble(samples)
-	model_ensemble_with_forecasts(samples)
+	#model_ensemble(samples)
+	#model_ensemble_with_forecasts(samples)
 	leakage_forecasting(samples)
 
 

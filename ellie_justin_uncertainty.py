@@ -165,8 +165,8 @@ def model_ensemble(samples):
 	# *hint* see TASK 1 for appropriate plotting commands
 	v = 0.05
 	ax.errorbar(tp,po,yerr=v,fmt='ro', label='data')
-	ax.set_xlabel('time')
-	ax.set_ylabel('pressure')
+	ax.set_xlabel('Time (years)')
+	ax.set_ylabel('Pressure (MPa)')
 	ax.legend()
 	plt.show()
 

@@ -32,7 +32,9 @@ def lpm(t, p, q, p0, a, b):
 
 # implement an improved Euler step to solve the ODE
 def solve_lpm(f, t0, t1, dt, x0, pars, scale=1.):
+
     def step_ieuler(f, tk, yk, h, args=None, scale=1.):
+
 
         # Solve q first
         def qsolve1(tk, scale=1.):
@@ -78,7 +80,13 @@ def interpolate_kettle_heatsource(t, scale=1.):
 
     time , mass = np.genfromtxt( 'gs_mass.txt' , delimiter=',', skip_header = 1 ).T
     secondsPerMonth = 2628288 #average month
-    q = scale*mass / secondsPerMonth
+    q = scale * mass / secondsPerMonth
+
+    q = q.tolist()
+    time = time.tolist()
+    q.extend(q)
+    time2 = [x + 10 for x in time]
+    time.extend(time2)
 
 
     for i in range(len(time)):

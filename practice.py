@@ -119,11 +119,11 @@ def plot_kettle_model():
     ax.set_title("Our final parameter estimates after manual tweaks which improved upon curve fitting output")
     ax.legend()
 
-    # p_model = [p[i] for i in range(0,len(t)+1, 5 )] 
-    #constants=curve_fit(Tmodel,  p_model , pressure, [a,b])
+    # p_model = [p[i] for i in range(0,len(t)+1, 5 )]
+    constants=curve_fit(Tmodel,  p_model , pressure, [a,b])
     
-    # a_const=constants[0][0]
-    # b_const=constants[0][1]
+    a_const=constants[0][0]
+    b_const=constants[0][1]
     plt.show()
     plt.savefig("modelFitImproved")
     
