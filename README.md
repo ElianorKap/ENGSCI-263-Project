@@ -32,8 +32,7 @@ This repository will contain python functions to perform the following tasks:
 * Calibration
   * `lab2_curve_fitting.py`&emsp;&nbsp;- this contains a curve fitting function which will help us choose good parameter values for the model such that it is a good approximation of
   reality
-  * `practice.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - Generates plot of our finalised parameter estimates upon having tweaked curve fitting output.
-
+  * `practice.py`&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&nbsp; - Generates plot of our finalised parameter estimates upon having tweaked curve fitting output.
   * `task2.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- this function is used to test the sensitivity of the parameter and help us get a rough 
   set of parameter value
 * Prediction 
@@ -44,8 +43,8 @@ This repository will contain python functions to perform the following tasks:
   uncertainty of the model as well as constructing a future forecast
   * `ellie_lumped_parameter_model.py` -
   * `ellie_plotting.py`&emsp;&emsp;&nbsp;&ensp;&nbsp; - 
-  * `Uncertainty.py` - this function will also calculate values and generate plot for prediction and uncertainty
-  * `plotting2.py` - this function is used to create the plots for uncertainty
+  * `Uncertainty.py`&emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp; - this function will also calculate values and generate plot for prediction and uncertainty
+  * `plotting2.py`&emsp;&emsp;&emsp;&ensp;&ensp;&emsp;&ensp; - this function is used to create the plots for uncertainty
 
 
 Others
@@ -54,8 +53,9 @@ Others
 * `gs_mass.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&ensp;&nbsp; - historical mass data file
 * `gs_pres.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - historical pressure data file
 * `modelFitImproved.png`&emsp;&emsp;&emsp;&nbsp; - image of the improved model fit
-* `justin_uncertainty2.py` - replica of `ellie_justin_uncertainty.py`
-* `lmp2.py` - replica of `ellie_lumped_parameter_model.py`
+* `justin_uncertainty2.py`&emsp;&ensp;&ensp;&nbsp; - replica of `ellie_justin_uncertainty.py`
+* `lmp2.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; - replica of `ellie_lumped_parameter_model.py`
+* `q_array.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; - this function finds mass rate at times over the injection/extraction period
 
 ## Instructions  
 
