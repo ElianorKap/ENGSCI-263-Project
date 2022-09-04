@@ -39,11 +39,9 @@ This repository will contain python functions to perform the following tasks:
   * `JuneUncertainty.py`&emsp;&emsp;&nbsp;&ensp;- this function will perform calculation and generate plots for prediction based on different scenario 
   such as initial gas leakage and doubling the pressure capacity etc
 * Uncertainty
-  * `ellie_justin_uncertainty.py` - this function will also quantify and plot the uncertainty of the model as well as constructing a future forecast
-  * `ellie_lumped_parameter_model.py` - this function contains the functions necessary for calculating the values of uncertainty
-  * `ellie_plotting.py`&emsp;&emsp;&nbsp;&ensp;&nbsp; - this function contains the function necessary for plotting the uncertainty 
-  * `Uncertainty.py`&emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp; - this function will also calculate values and generate plot for prediction and uncertainty
-
+  * `Model_uncertainty.py` - this function will also quantify and plot the uncertainty of the model as well as constructing a future forecast
+  * `lpm2.py` - this function contains the functions necessary for calculating the values of uncertainty
+  * `plotting2.py`&emsp;&emsp;&nbsp;&ensp;&nbsp; - this function contains the function necessary for plotting the uncertainty 
 
 
 Others
