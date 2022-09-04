@@ -39,12 +39,11 @@ This repository will contain python functions to perform the following tasks:
   * `JuneUncertainty.py`&emsp;&emsp;&nbsp;&ensp;- this function will perform calculation and generate plots for prediction based on different scenario 
   such as initial gas leakage and doubling the pressure capacity etc
 * Uncertainty
-  * `ellie_justin_uncertainty.py` - this function will also quantify and plot the
-  uncertainty of the model as well as constructing a future forecast
-  * `ellie_lumped_parameter_model.py` -
-  * `ellie_plotting.py`&emsp;&emsp;&nbsp;&ensp;&nbsp; - 
+  * `ellie_justin_uncertainty.py` - this function will also quantify and plot the uncertainty of the model as well as constructing a future forecast
+  * `ellie_lumped_parameter_model.py` - this function contains the functions necessary for calculating the values of uncertainty
+  * `ellie_plotting.py`&emsp;&emsp;&nbsp;&ensp;&nbsp; - this function contains the function necessary for plotting the uncertainty 
   * `Uncertainty.py`&emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp; - this function will also calculate values and generate plot for prediction and uncertainty
-  * `plotting2.py`&emsp;&emsp;&emsp;&ensp;&ensp;&emsp;&ensp; - this function is used to create the plots for uncertainty
+
 
 
 Others
@@ -55,6 +54,7 @@ Others
 * `modelFitImproved.png`&emsp;&emsp;&emsp;&nbsp; - image of the improved model fit
 * `justin_uncertainty2.py`&emsp;&ensp;&ensp;&nbsp; - replica of `ellie_justin_uncertainty.py`
 * `lmp2.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; - replica of `ellie_lumped_parameter_model.py`
+* `plotting2.py`&emsp;&emsp;&emsp;&ensp;&ensp;&emsp;&ensp; - replica of `ellie_plotting.py`
 * `q_array.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; - this function finds mass rate at times over the injection/extraction period
 
 ## Instructions  
