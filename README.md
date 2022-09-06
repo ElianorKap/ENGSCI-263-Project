@@ -40,7 +40,7 @@ This repository will contain python functions to perform the following tasks:
   such as initial gas leakage and doubling the pressure capacity etc
 * Uncertainty
   * `Model_uncertainty.py` - this function will also quantify and plot the uncertainty of the model as well as constructing a future forecast
-  * `lpm2.py` - this function contains the functions necessary for calculating the values of uncertainty
+  * `Model_LPM.py` - this function contains the functions necessary for calculating the values of uncertainty
   * `plotting2.py` - this function contains the function necessary for plotting the uncertainty
   * `Plot_histogram.py` - this function contains the function necessary for plotting the parameter frequency density 
 
