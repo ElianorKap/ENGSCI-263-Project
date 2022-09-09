@@ -130,9 +130,9 @@ def benchmarking(a, B, q, p0, plot = True):
         f, ax = plt.subplots(1, 1)
         ax.plot(x1, y1, 'x', label='numerical solution')
         ax.plot(x1, y2, 'r-', label='analytical solution')
-        ax.set_ylabel('Pressure,P')
-        ax.set_xlabel('time,t')
-        ax.set_title("benchmark")
+        ax.set_ylabel('Pressure, MPa')
+        ax.set_xlabel('Time, s')
+        ax.set_title("Benchmark, a = 18.1, b = 0.026, p0 = 10.87")
         ax.legend(loc=2)
         # plot the relative error against the benchmarking
         f1,ax1 = plt.subplots(1, 1)
@@ -140,9 +140,9 @@ def benchmarking(a, B, q, p0, plot = True):
         for i in range(len(x1)):
             error[i] = abs(y2[i]-y1[i])/abs(y1[i])
         ax1.plot(x1, error, 'k.')
-        ax1.set_ylabel('relative error against benchmark')
-        ax1.set_xlabel('t')
-        ax1.set_title("error analysis")
+        ax1.set_ylabel('Relative error against benchmark')
+        ax1.set_xlabel('Time, s')
+        ax1.set_title("Error Analysis")
         # plot the timestep convergence
         f2, ax2 = plt.subplots(1, 1)
         con = []

@@ -155,10 +155,14 @@ def plot_kettle_model():
     tmi,Tmi = solve_kettle_ode(ode_model, timeModel , x0, pars)
     print("obj is now",objective(pars))
 
-    f,ax = plt.subplots(1, 1, figsize=(12,6))
-    ax.plot(to,To, 'k' ,label='observations')
-    ax.plot(tm,Tm, 'r-', label='model guess')
-    ax.plot(tmi,Tmi, 'b-', label='model improved')
+    f1,ax1 = plt.subplots(1, 1, figsize=(12,6))
+    ax1.plot(to,To, 'k' ,label='observations')
+    ax1.plot(tm,Tm, 'r-', label='model guess')
+
+    f2,ax2 = plt.subplots(1, 1, figsize=(12,6))
+
+    ax1.plot(to,To, 'k' ,label='observations')
+    ax2.plot(tmi,Tmi, 'b-', label='model improved')
     
     ax.set_xlabel('time, $t$ [s]')
 
