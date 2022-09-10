@@ -82,6 +82,24 @@ def interpolate_kettle_heatsource(t, scale=1.):
 
 #     return obj
 
+def misfit(pars):
+    
+    time , pressure = np.genfromtxt( 'gs_pres.txt' , delimiter=',', skip_header = 1 ).T
+
+    t , p = solve_ode_kettle(ode_model, 2009 ,2019, 0.05 , 25.16 , pars)
+
+    p_model = [p[i] for i in range(0,len(t), 5 )] 
+
+
+    # calculate the misfit vectore
+    misfitVector= []	# initiate
+
+    for i in range(len(time)):	# runs through time list
+        misfitVector.append(pressure[i]-p_model[i])	 	# add the calculated misfit
+
+    return misfitVector
+
+
 def plot_kettle_model():
     
     time , pressure = np.genfromtxt( 'gs_pres.txt' , delimiter=',', skip_header = 1 ).T
@@ -96,28 +114,32 @@ def plot_kettle_model():
     #0.57 obj
 
     t , p = solve_ode_kettle(ode_model, 2009 ,2019, 0.1 , 25.16 , [p0,a,b] )
-   
-
+    
+    misfitVector  = misfit([p0,a,b])
+    
     #tb , pb = solve_ode_kettle(ode_model, 2009 ,2019, 0.1 , 25.16 , [ 0.1, 12.1,0.009] )
     
     tb , pb = solve_ode_kettle(ode_model, 2009 ,2019, 0.1 , 25.16 , [0.1, 12.1, 0.006] )
 
-
     # plt.plot( t,p , 'r')
     # plt.plot(tb,pb, "b")
 
-    f,ax = plt.subplots(1, 1, figsize=(12,6))
-    ax.set_title(f"a = {a} , b = {b} , overpressure = 25.6 , p0 ={p0}")
-    ax.plot(time,pressure, 'k' ,label='observations')
+    f,ax = plt.subplots(1, 2, figsize=(12,6))
+    ax[0].set_title(f"a = {a} , b = {b} , overpressure = 25.6 , p0 ={p0}")
+    ax[0].plot(time,pressure, 'k' ,label='observations')
     #ax.plot(tb,pb, 'r-', label='model guess')
 
-    ax.plot(t,p, 'b-', label='model improved')
+    ax[0].plot(t,p, 'b-', label='model improved')
     #obj is now 0.996
-    ax.set_xlabel('time, $t$ [year]')
 
-    ax.set_ylabel('Pressure, $MPa$')
-    ax.set_title("Our final parameter estimates after manual tweaks which improved upon curve fitting output")
-    ax.legend()
+    ax[1].plot( time, misfitVector , 'x')
+    ax[1].set_ylim(-0.4,0.4)
+    ax[1].plot( t, np.zeros(len(t)) , '.')
+    ax[0].set_xlabel('time, $t$ [year]')
+
+    ax[0].set_ylabel('Pressure, $MPa$')
+    f.suptitle("Our final parameter estimates after manual tweaks which improved upon curve fitting output")
+    ax[0].legend()
 
     # p_model = [p[i] for i in range(0,len(t)+1, 5 )]
     #constants=curve_fit(Tmodel,  p_model , pressure, [a,b])
@@ -125,10 +147,34 @@ def plot_kettle_model():
     #a_const=constants[0][0]
     #b_const=constants[0][1]
     plt.show()
-    plt.savefig("modelFitImproved")
-    
+    #plt.savefig("modelFitImproved")
+    a =  12.1
+    b =  0.006
+    p0 = 0.1
+    pars=[p0, a,b ]
+    t , p = solve_ode_kettle(ode_model, 2009 ,2019, 0.1 , 25.16 , pars )
+    misfitVector  = misfit(pars)
+
+    f,ax = plt.subplots(1, 2, figsize=(12,6))
+    ax[0].set_title(f"a = {a} , b = {b} , overpressure = 25.6 , p0 ={p0}")
+    ax[0].plot(time,pressure, 'k' ,label='observations')
+    #ax.plot(tb,pb, 'r-', label='model guess')
+
+    ax[0].plot(t,p, 'b-', label='model improved')
+    #obj is now 0.996
+
+    ax[1].plot( time, misfitVector , 'x')
+    ax[1].plot( t, np.zeros(len(t)) , '.')
+    ax[1].set_ylim(-0.4,0.4)
+    ax[0].set_xlabel('time, $t$ [year]')
+
+    ax[0].set_ylabel('Pressure, $MPa$')
+    f.suptitle("Our initial parameter estimates")
+    ax[0].legend()
+    plt.show()
 
 if __name__ == "__main__":
+    
     
     plot_kettle_model()
 

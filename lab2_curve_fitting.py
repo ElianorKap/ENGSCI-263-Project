@@ -136,16 +136,13 @@ def plot_kettle_model():
         x0=25.16
         tm,Tm = solve_kettle_ode(ode_model, t, x0, pars)
         return Tm
-
     #p0 = [5.2e-4,0.7e-3]
     # our guess
     #p0=[10 , 24, 0.1]
-
     constants=curve_fit(Tmodel, to, To, pars, check_finite= True)
     a_const=constants[0][1]
     b_const=constants[0][2]
     c_const= constants[0][0]
-
     print("a = ", a_const)
     print("b = ",b_const)
     print("p0 = ", c_const)
@@ -154,22 +151,20 @@ def plot_kettle_model():
     x0=25.16
     tmi,Tmi = solve_kettle_ode(ode_model, timeModel , x0, pars)
     print("obj is now",objective(pars))
-
-    f1,ax1 = plt.subplots(1, 1, figsize=(12,6))
-    ax1.plot(to,To, 'k' ,label='observations')
-    ax1.plot(tm,Tm, 'r-', label='model guess')
-
-    f2,ax2 = plt.subplots(1, 1, figsize=(12,6))
-
-    ax1.plot(to,To, 'k' ,label='observations')
-    ax2.plot(tmi,Tmi, 'b-', label='model improved')
+    f,ax = plt.subplots(1, 1, figsize=(12,6))
+    ax.plot(to,To, 'k' ,label='observations')
+    ax.plot(tm,Tm, 'r-', label='model guess')
+    ax.plot(tmi,Tmi, 'b-', label='model improved')
     
     ax.set_xlabel('time, $t$ [s]')
 
     ax.set_ylabel('temperature, $T$ [$^{\circ}$C]')
+
     ax.set_title("Our Model initial parameter estimate improvement using a curve fitting function")
     ax.legend()
     plt.show()
+
+
 
 if __name__ == "__main__":
 
