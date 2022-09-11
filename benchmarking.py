@@ -88,7 +88,7 @@ def benchmarking(a, B, q, p0, plot = True):
                 Lumped parameter.
             B : float
                 Binary control variable.
-             q : float
+            q : float
                 mass flow rate.
             p0 : float
                 Initial value of solution.
@@ -112,7 +112,7 @@ def benchmarking(a, B, q, p0, plot = True):
         '''
     # get the value of time for two solution
     t = []
-    for i in np.arange(0, 10, 0.5):
+    for i in np.arange(0, 100, 2):
         t.append(i)
     t0 = t[0]
     t1 = t[-1]
@@ -127,24 +127,28 @@ def benchmarking(a, B, q, p0, plot = True):
         y2[i] = -((a*q)*(1-math.e**(-B*x1[i])))/B+p0
     # plot the benchmarking
     if plot == True:
-        f, ax = plt.subplots(1, 1)
+        f, ax = plt.subplots(1, 1, figsize=(12,6))
         ax.plot(x1, y1, 'x', label='numerical solution')
         ax.plot(x1, y2, 'r-', label='analytical solution')
         ax.set_ylabel('Pressure, MPa')
         ax.set_xlabel('Time, s')
-        ax.set_title("Benchmark, a = 18.1, b = 0.026, p0 = 10.87")
+        ax.set_title("Benchmark, a = 18.1, d = 0.026, p0 = 10.87")
         ax.legend(loc=2)
+        plt.savefig('Benchmark plot 1')
+
         # plot the relative error against the benchmarking
-        f1,ax1 = plt.subplots(1, 1)
+        f3,ax3 = plt.subplots(1, 1, figsize=(12,6))
         error = np.zeros(len(x1))
         for i in range(len(x1)):
             error[i] = abs(y2[i]-y1[i])/abs(y1[i])
-        ax1.plot(x1, error, 'k.')
-        ax1.set_ylabel('Relative error against benchmark')
-        ax1.set_xlabel('Time, s')
-        ax1.set_title("Error Analysis")
+        ax3.plot(x1, error, 'k.')
+        ax3.set_ylabel('Relative error against benchmark')
+        ax3.set_xlabel('Time, s')
+        ax3.set_title("Error Analysis")
         # plot the timestep convergence
-        f2, ax2 = plt.subplots(1, 1)
+        plt.savefig('Benchmark plot 3')
+
+        f2, ax2 = plt.subplots(1, 1, figsize=(12,6))
         con = []
         thetat = []
         for i in np.arange(0.1,1,0.05):
@@ -158,6 +162,8 @@ def benchmarking(a, B, q, p0, plot = True):
         ax2.set_ylabel('P(t=10)')
         ax2.set_xlabel('1/theta(t)')
         ax2.set_title("timestep convergence")
+        plt.savefig('Benchmark plot 2')
+
         plt.show()
     analytical_solution = y1[-1]
     numerical_solution = y2[-1]
@@ -165,4 +171,4 @@ def benchmarking(a, B, q, p0, plot = True):
 
 
 if __name__ == '__main__':
-    benchmarking(18.1,0.026,25.6,10.87)
+    benchmarking(18.1,0.026,1,10.87)
