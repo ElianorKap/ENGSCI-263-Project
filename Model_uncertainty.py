@@ -27,7 +27,7 @@ def grid_search():
 	b_best = 0.026
 
 	# Number of values considered for each parameter within a given interval
-	N = 20
+	N = 80
 
 	# Vectors of parameter values
 	a = np.linspace(a_best/2,a_best*1.5, N)
@@ -60,7 +60,10 @@ def grid_search():
 	P = P/Pint
 
 	# Plot posterior parameter distribution
-	# plot_posterior(a, b, P=P)
+
+	plot_posterior(a, b, P=P)
+	plt.savefig('posterior meshgrid without samples')
+	plt.show()
 
 	return a,b,P
 
@@ -94,8 +97,10 @@ def construct_samples(a,b,P,N_samples):
 	samples = np.random.multivariate_normal(mean, covariance, N_samples)
 
 	# Plot samples and predictions
-	# plot_samples(a, b, P=P, samples=samples)
 
+	plot_samples(a, b, P=P, samples=samples)
+	plt.savefig('meshgrid with samples')
+	plt.show()
 	return samples
 
 
@@ -358,9 +363,9 @@ if __name__=="__main__":
 	N = 20
 	samples = construct_samples(a, b, posterior, N)
 
-	plot_histograms(samples)
-	model_ensemble(samples)
-	model_ensemble_with_forecasts(samples)
-	leakage_forecasting(samples)
+	#plot_histograms(samples)
+	#model_ensemble(samples)
+	#model_ensemble_with_forecasts(samples)
+	#leakage_forecasting(samples)
 
 
