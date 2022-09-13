@@ -129,7 +129,7 @@ def model_ensemble(samples):
 	ax.set_xlabel('Time (years)')
 	ax.set_ylabel('Pressure (MPa)')
 	ax.set_title(' Pressure Variation in Ahuroa Resevoir')
-	ax.legend(loc = 'upper left', prop={'size': 6})
+	ax.legend(loc = 'upper left', prop={'size': 15})
 	plt.savefig('Uncertainty plot 1')
 	plt.show()
 
@@ -174,7 +174,7 @@ def model_ensemble_with_forecasts(samples):
 	ax1.set_title('Forecasted Pressure Variation in Ahuroa Resevoir')
 	ax1.set_xlabel('Time (years)')
 	ax1.set_ylabel('Pressure (MPa)')
-	ax1.legend(prop={'size': 6})
+	ax1.legend(prop={'size': 15})
 
 	plt.savefig('Uncertainty plot 2')
 	plt.show()
@@ -276,7 +276,7 @@ def leakage_forecasting(samples):
 	ax2.set_title('What-if Scenarios With Uncertainty')
 	ax2.set_xlabel('Time (years)')
 	ax2.set_ylabel('Pressure (MPa)')
-	ax2.legend(prop={'size': 6})
+	ax2.legend(prop={'size': 15})
 
 	plt.savefig('Uncertainty plot 3')
 	plt.show()
