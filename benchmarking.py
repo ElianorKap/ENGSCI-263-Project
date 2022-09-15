@@ -30,7 +30,7 @@ def ode_model(t, p, q, a, d, p0):
             ------
             This is a simplified version for dp/dt
         '''
-    dpdt = -a*q-d*(p-p0)
+    dpdt = a*q-d*(p-p0)
 
     return dpdt
 
@@ -113,7 +113,7 @@ def benchmarking(a, d, q, p0, plot = True):
     # get the analytical solutions
     y2 = np.zeros(len(x1))
     for i in range(len(x1)):
-        y2[i] = -((a*q)*(1-math.e**(-d*x1[i])))/d+p0
+        y2[i] = ((a*q)*(1-math.e**(-d*x1[i])))/d+p0
     # plot the benchmarking
     if plot == True:
         f, ax = plt.subplots(1, 1, figsize=(12,6))
@@ -140,7 +140,7 @@ def benchmarking(a, d, q, p0, plot = True):
         f2, ax2 = plt.subplots(1, 1, figsize=(12,6))
         con = []
         thetat = []
-        for i in np.arange(0.0001,1,0.0001):
+        for i in np.arange(0.01,1,0.0001):
             x3,y3 = solve_ode(fun, 0, 10, i, p0, parm)
             # record the pressure when (t = 10)
             con.append(y3[-1])
@@ -149,7 +149,7 @@ def benchmarking(a, d, q, p0, plot = True):
         # plot the graph
         ax2.plot(thetat, con, 'k.')
         ax2.set_ylabel('Pressure(t=10),Mpa')
-        ax2.set_xlabel('1/theta(t)')
+        ax2.set_xlabel('1/theta , 1/s (theta is time step)')
         ax2.set_title("timestep convergence")
         plt.savefig('Benchmark plot 2')
         plt.show()
