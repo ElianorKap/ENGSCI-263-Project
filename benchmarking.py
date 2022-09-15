@@ -140,7 +140,7 @@ def benchmarking(a, d, q, p0, plot = True):
         f2, ax2 = plt.subplots(1, 1, figsize=(12,6))
         con = []
         thetat = []
-        for i in np.arange(0.0001,1,0.0001):
+        for i in np.arange(0.01,1,0.0001):
             x3,y3 = solve_ode(fun, 0, 10, i, p0, parm)
             # record the pressure when (t = 10)
             con.append(y3[-1])
