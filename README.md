@@ -27,21 +27,22 @@ This repository will contain python functions to perform the following tasks:
 * Unit Testing
   * `Model_Unit_Testing.py`&nbsp;&ensp;&ensp;- this function will compare the output of a function to a worked solution
 * Benchmarking
-  * `benchmarking.py`&emsp;&emsp;&emsp;&ensp;&nbsp;&ensp;- this function will solve the ODE analytically under a simplified condition and verify the
+  * `benchmarking.py`&emsp;&emsp;&emsp;&ensp;&ensp;&ensp;- this function will solve the ODE analytically under a simplified condition and verify the
   numerical solver by returning a similar solution for the same parameters
 * Calibration
   * `lab2_curve_fitting.py`&emsp;&nbsp;- this contains a curve fitting function which will help us choose good parameter values for the model such that it is a good approximation of
   reality
-  * `practice.py`&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&nbsp; - Generates plot of our finalised parameter estimates upon having tweaked curve fitting output.
-  * `task2.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- this function is used to test the sensitivity of the parameter and help us get a rough 
+  * `newpractice.py`&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; - Generates plot of our finalised parameter estimates upon having tweaked curve fitting output.
   set of parameter value
 * Prediction 
   * `JuneUncertainty.py`&emsp;&emsp;&nbsp;&ensp;- this function will perform calculation and generate plots for prediction based on different scenario 
   such as initial gas leakage and doubling the pressure capacity etc
 * Uncertainty
-  * `Model_uncertainty.py` - this file will find a posterior distribution for paramter samples, and plot current and forecasted models with uncertainty.
-  * `lpm3.py` - this file solves ead of the models within the ensemble analytically.
-  * `plotting2.py` - this file contains the function necessary for plotting the uncertainty models.
+  * `Model_uncertainty.py`&emsp;&ensp; - this function will also quantify and plot the uncertainty of the model as well as constructing a future forecast
+  * `lpm3.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; - this function contains the functions necessary for calculating the values of uncertainty
+  * `plotting2.py`&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; - this function contains the function necessary for plotting the uncertainty
+  * `Plot_histogram.py`&emsp;&emsp;&emsp; - this function contains the function necessary for plotting the parameter frequency density 
+
 
 Others
 
@@ -50,14 +51,26 @@ Others
 * `gs_pres.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; - historical pressure data file
 * `modelFitImproved.png`&emsp;&emsp;&emsp;&nbsp; - image of the improved model fit
 * `q_array.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; - this function finds mass rate at times over the injection/extraction period
+* `Benchmark plot 1.png`&emsp;&emsp;&emsp;&nbsp; - image of the benchmarking plot 
+* `Benchmark plot 2.png`&emsp;&emsp;&emsp;&nbsp; - image of the benchmarking plot 
+* `Benchmark plot 3.png`&emsp;&emsp;&emsp;&nbsp; - image of the benchmarking plot 
+* `Histogram a.png`&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&ensp; - histogram plot for their respective parameter
+* `Histogram b.png`&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&ensp; - histogram plot for their respective parameter
+* `Observation_plots.py`&emsp;&emsp;&emsp;&nbsp; - Plot to view their pressure and mass observation data
+* `Uncertainty plot 1.png`&emsp;&nbsp;&ensp;&ensp; - image of the uncertainty plot
+* `Uncertainty plot 2.png`&emsp;&nbsp;&ensp;&ensp; - image of the uncertainty plot
+* `lpm2.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; - copy of `lpm3.py` 
+* `practice.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; - copy of `newpractice.py`
+* `meshgrid with samples.png`&ensp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; - plot of meshgrid with samples
+* `posterior meshgrid without samples.png`&emsp;&emsp;&emsp;&emsp; - image of posterior meshgrid
+* `posterior meshgrid without samples 2.png`&emsp;&emsp;&emsp; - image of posterior meshgrid2
+* `posterior meshgrid without samples - Copy.png`&ensp; - image of posterior meshgridcopy
+
 
 ## Instructions  
 
 
 1. Open terminal at a folder that you will use for this project
-2. Use the `git clone` command to clone this repository into that folder
+2. Use the `git clone` command to clone this repository into a folder of choice
 3. Open `Main.py` 
-4. Within the `Main.py` function, you will need to input values for benchmarking() and main() functions in order to plot the figures within those functions.
-5. For benchmarking() function, you can input the following parameters 18.1,0.026,25.6,10.87
-6. For main() function, you will need to input False,True,True,True as the parameters
-7. Run `Main.py` which will produce all the model figures used in the group projects.
+4. Run `Main.py` which will produce all the model figures used in the group projects.
