@@ -361,7 +361,7 @@ if __name__=="__main__":
 	N = 20
 	samples = construct_samples(a, b, posterior, N)
 
-	# plot_histograms(samples)
+	plot_histograms(samples)
 	model_ensemble(samples)
 	model_ensemble_with_forecasts(samples)
 	leakage_forecasting(samples)
