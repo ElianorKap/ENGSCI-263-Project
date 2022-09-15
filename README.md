@@ -52,10 +52,10 @@ Others
 * `modelFitImproved.png`&emsp;&emsp;&emsp;&nbsp; - image of the improved model fit
 * `q_array.py`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; - this function finds mass rate at times over the injection/extraction period
 * `Benchmark plot 1.png`&emsp;&emsp;&emsp;&nbsp; - image of the benchmarking plot 
-* `Benchmark plot 2.png`&emsp;&emsp;&emsp;&nbsp; - image of the benchmarking plot 
-* `Benchmark plot 3.png`&emsp;&emsp;&emsp;&nbsp; - image of the benchmarking plot 
-* `Histogram a.png`&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&ensp; - histogram plot for their respective parameter
-* `Histogram b.png`&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&ensp; - histogram plot for their respective parameter
+* `Benchmark plot 2.png`&emsp;&emsp;&emsp;&nbsp; - image of the timestep convergence plot 
+* `Benchmark plot 3.png`&emsp;&emsp;&emsp;&nbsp; - image of error analysis plot 
+* `Histogram a.png`&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&ensp; - histogram plot for parameter 'a'
+* `Histogram b.png`&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&ensp; - histogram plot for parameter 'd'
 * `Observation_plots.py`&emsp;&emsp;&emsp;&nbsp; - Plot to view their pressure and mass observation data
 * `Uncertainty plot 1.png`&emsp;&nbsp;&ensp;&ensp; - image of the uncertainty plot
 * `Uncertainty plot 2.png`&emsp;&nbsp;&ensp;&ensp; - image of the uncertainty plot
@@ -64,7 +64,6 @@ Others
 * `meshgrid with samples.png`&ensp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; - plot of meshgrid with samples
 * `posterior meshgrid without samples.png`&emsp;&emsp;&emsp;&emsp; - image of posterior meshgrid
 * `posterior meshgrid without samples 2.png`&emsp;&emsp;&emsp; - image of posterior meshgrid2
-* `posterior meshgrid without samples - Copy.png`&ensp; - image of posterior meshgridcopy
 
 
 ## Instructions  
