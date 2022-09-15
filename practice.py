@@ -96,7 +96,10 @@ def misfit(pars):
 
     for i in range(len(time)):	# runs through time list
         misfitVector.append(pressure[i]-p_model[i])	 	# add the calculated misfit
-
+    tot = 0
+    for i in misfitVector:
+        tot += i**2
+    print("squared sum error: ",tot)
     return misfitVector
 
 
@@ -122,7 +125,7 @@ def plot_kettle_model():
     # plt.plot(tb,pb, "b")
 
     f,ax = plt.subplots(1, 2, figsize=(18,6))
-    ax[0].set_title(f"a = {a} , b = {b} , overpressure = 25.6 , p0 ={p0}")
+    ax[0].set_title(f"a = {a} , d = {b} , overpressure = 25.6 , p0 ={p0}")
     ax[0].plot(time,pressure, 'k' ,label='observations')
     #ax.plot(tb,pb, 'r-', label='model guess')
 
@@ -156,7 +159,7 @@ def plot_kettle_model():
     misfitVector  = misfit(pars)
 
     f,ax = plt.subplots(1, 2, figsize=(18,6))
-    ax[0].set_title(f"a = {a} , b = {b} , overpressure = 25.6 , p0 ={p0}")
+    ax[0].set_title(f"a = {a} , d = {b} , overpressure = 25.6 , p0 ={p0}")
     ax[0].plot(time,pressure, 'k' ,label='observations')
     #ax.plot(tb,pb, 'r-', label='model guess')
 
@@ -167,7 +170,6 @@ def plot_kettle_model():
     ax[1].plot( t, np.zeros(len(t)) , '.')
     ax[1].set_ylim(-0.4,0.4)
     ax[0].set_xlabel('time, $t$ [year]')
-
     ax[0].set_ylabel('Pressure, $MPa$')
     f.suptitle("Best Fit LPM Model")
     ax[0].legend()
