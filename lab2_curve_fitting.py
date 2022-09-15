@@ -158,7 +158,7 @@ def plot_kettle_model():
     
     ax.set_xlabel('time, $t$ [s]')
 
-    ax.set_ylabel('temperature, $T$ [$^{\circ}$C]')
+    ax.set_ylabel('Pressure $MPa$')
 
     ax.set_title("Our Model initial parameter estimate improvement using a curve fitting function")
     ax.legend()
