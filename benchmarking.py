@@ -30,7 +30,7 @@ def ode_model(t, p, q, a, d, p0):
             ------
             This is a simplified version for dp/dt
         '''
-    dpdt = -a*q-d*(p-p0)
+    dpdt = a*q-d*(p-p0)
 
     return dpdt
 
@@ -113,7 +113,7 @@ def benchmarking(a, d, q, p0, plot = True):
     # get the analytical solutions
     y2 = np.zeros(len(x1))
     for i in range(len(x1)):
-        y2[i] = -((a*q)*(1-math.e**(-d*x1[i])))/d+p0
+        y2[i] = ((a*q)*(1-math.e**(-d*x1[i])))/d+p0
     # plot the benchmarking
     if plot == True:
         f, ax = plt.subplots(1, 1, figsize=(12,6))
