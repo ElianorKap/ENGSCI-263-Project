@@ -10,7 +10,7 @@ v = 0.15
 ax.errorbar(time, pressure, yerr=v, fmt='ro')
 ax.set_xlabel('Time (years)')
 ax.set_ylabel('Pressure (MPa)')
-plt1 = ax.plot(time, pressure, 'r', label='Pressure observation')
+plt1 = ax.plot(time, pressure, 'k', label='Pressure observation')
 
 ax2=ax.twinx()
 
