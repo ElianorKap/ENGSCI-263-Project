@@ -44,7 +44,7 @@ This repository will contain python functions to perform the following tasks:
   * `Plot_histogram.py`&emsp;&emsp;&emsp; - this function contains the function necessary for plotting the parameter frequency density 
 
 
-Others
+Additional:
 
 * `June_sdlab_functions.py`&emsp;&ensp;&nbsp; - this function is used to calculate the interpolation values
 * `gs_mass.txt`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&ensp;&nbsp; - historical mass data file
