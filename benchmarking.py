@@ -149,7 +149,7 @@ def benchmarking(a, d, q, p0, plot = True):
         # plot the graph
         ax2.plot(thetat, con, 'k.')
         ax2.set_ylabel('Pressure(t=10),Mpa')
-        ax2.set_xlabel('1/theta(t)')
+        ax2.set_xlabel('1/theta , 1/s (theta is time step)')
         ax2.set_title("timestep convergence")
         plt.savefig('Benchmark plot 2')
         plt.show()
