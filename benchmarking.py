@@ -6,9 +6,8 @@ import math
 import numpy as np
 from matplotlib import pyplot as plt
 
-def ode_model(t, p, q, a, B, p0):
+def ode_model(t, p, q, a, d, p0):
     ''' Return the derivative dp/dt at time, t, for given parameters.
-
             Parameters:
             -----------
             t : float
@@ -19,27 +18,24 @@ def ode_model(t, p, q, a, B, p0):
                 mass flow rate.
             a : float
                 Lumped parameter.
-            B : float
-                Binary control variable.
+            d : float
+                Lumped parameter.
             p0 : float
                 Ambient value of dependent variable.
-
             Returns:
             --------
             dpdt : float
                 Derivative of dependent variable with respect to independent variable.
-
             Notes:
             ------
             This is a simplified version for dp/dt
         '''
-    dpdt = -a*q-B*(p-p0)
+    dpdt = -a*q-d*(p-p0)
 
     return dpdt
 
 def solve_ode(f, t0, t1, dt, p0, pars):
     ''' Solve an ODE numerically.
-
             Parameters:
             -----------
             f : callable
@@ -54,14 +50,12 @@ def solve_ode(f, t0, t1, dt, p0, pars):
                 Initial value of solution.
             pars : array-like
                 List of parameters passed to ODE function f.
-
             Returns:
             --------
             t : array-like
                 Independent variable solution vector.
             p : array-like
                 Dependent variable solution vector.
-
             Notes:
             ------
             using the Improved Euler Method to solve ode
@@ -79,36 +73,31 @@ def solve_ode(f, t0, t1, dt, p0, pars):
     # return the time and pressure for numerical solution
     return t, p
 
-def benchmarking(a, B, q, p0, plot = True):
+def benchmarking(a, d, q, p0, plot = True):
     ''' Compare analytical and numerical solutions.
-
             Parameters:
             -----------
             a : float
                 Lumped parameter.
-            B : float
-                Binary control variable.
+            d : float
+                Lumped parameter.
             q : float
                 mass flow rate.
             p0 : float
                 Initial value of solution.
             plot: Bool
                 If True, creates plots of timestep convergence and error analysis
-
             Returns:
             --------
             analytical_solution : float
                                 Analytical solution at final time.
             numerical_solution : float
                                 Numerical solution at final time.
-
             Notes:
             ------
             This function called within if __name__ == "__main__":
-
             It should contain commands to obtain analytical and numerical solutions,
             plot the benchmarking, relative error against benchmarking and timestep convergence
-
         '''
     # get the value of time for two solution
     t = []
@@ -118,13 +107,13 @@ def benchmarking(a, B, q, p0, plot = True):
     t1 = t[-1]
     dt = 0.1
     fun = ode_model
-    parm = [q, a, B, p0]
+    parm = [q, a, d, p0]
     # use solve_ode function get the numerical solutions
     x1, y1 = solve_ode(fun, t0, t1, dt, p0, parm)
     # get the analytical solutions
     y2 = np.zeros(len(x1))
     for i in range(len(x1)):
-        y2[i] = -((a*q)*(1-math.e**(-B*x1[i])))/B+p0
+        y2[i] = -((a*q)*(1-math.e**(-d*x1[i])))/d+p0
     # plot the benchmarking
     if plot == True:
         f, ax = plt.subplots(1, 1, figsize=(12,6))
@@ -159,11 +148,10 @@ def benchmarking(a, B, q, p0, plot = True):
             thetat.append(1/i)
         # plot the graph
         ax2.plot(thetat, con, 'k.')
-        ax2.set_ylabel('P(t=10)')
+        ax2.set_ylabel('Pressure(t=10),Mpa')
         ax2.set_xlabel('1/theta(t)')
         ax2.set_title("timestep convergence")
         plt.savefig('Benchmark plot 2')
-
         plt.show()
     analytical_solution = y1[-1]
     numerical_solution = y2[-1]
