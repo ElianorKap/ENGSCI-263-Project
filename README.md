@@ -21,14 +21,12 @@ to prevent local farmer's properties from catching fire. This repository will co
 ## Libraries Used (REQUIRED TO RUN Main.py)
 
 * `numpy`
-* `matplotlib` - pyplot
-* `matplotlib` - cm
-* `math` - isclose
+* `matplotlib`
 * `pandas`
 * `statistics`
-* `scipy.optimize` - curve_fit 
-* `mpl_toolkits.mplot3d` - Axes3D
-* `cProfile` - label
+* `scipy`
+* `mpl_toolkits` 
+* `cProfile` 
 
 ## Key Tasks
 
