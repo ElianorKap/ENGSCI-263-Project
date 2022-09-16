@@ -109,6 +109,10 @@ def model_ensemble(samples):
 		-----------
 		samples : array-like
 			parameter samples from the multivariate normal
+
+		Returns:
+		--------
+		None
 	'''
 
 	# Setting time vector to evaluate model between
@@ -143,6 +147,10 @@ def model_ensemble_with_forecasts(samples):
 		-----------
 		samples : array-like
 			parameter samples from the multivariate normal
+		Returns:
+		--------
+		None
+
 	'''
 
 	fig1, ax1 = plt.subplots(1,1, figsize=(12,6))
@@ -190,6 +198,10 @@ def leakage_forecasting(samples):
 		-----------
 		samples : array-like
 			parameter samples from the multivariate normal
+
+		Returns:
+		--------
+		None
 	'''
 
 	fig2, ax2 = plt.subplots(1,1, figsize=(12,6))
@@ -284,13 +296,18 @@ def leakage_forecasting(samples):
 	plt.savefig('Uncertainty plot 3')
 	plt.show()
 
-def plot_histograms(samples):
-	''' Plots frequency density distributions for given parameter values.
+def create_histograms(samples):
+	''' Creates frequency density histograms for sampled values of parameters a and d.
 
 		Parameters:
 		-----------
 		samples : array-like
 			parameter samples from the multivariate normal
+
+		Returns:
+		--------
+		None
+
 	'''
 
 	plt.rcParams["figure.figsize"] = [7.50, 3.50]
@@ -355,18 +372,57 @@ def plot_histograms(samples):
 	plt.show()
 
 def histogram_plots():
+
+	''' Plots frequency density histograms for 10000 samples of parameters a and d.
+
+		Parameters:
+		-----------
+		None
+
+		Returns:
+		--------
+		None
+
+	'''
+
+	# Setting number of samples
 	N = 10000
+
 	a,b,posterior = grid_search()
+
+	# Collecting sampled values for parameters
 	samples = construct_samples(a, b, posterior, N)
-	plot_histograms(samples)
+	create_histograms(samples)
 
 def present_plots():
+
+	''' Combines histogram plots for parameter space, and model ensembles for current and forecasted leakage rates.
+
+		Parameters:
+		-----------
+		None
+
+		Returns:
+		--------
+		None
+
+	'''
 	histogram_plots()
 	a,b,posterior = grid_search()
+
+	# Setting number of samples
 	N = 20
+
+	# Collecting sampled values for parameters
 	samples = construct_samples(a, b, posterior, N)
+
+	# Creating model ensemble over the time period of [2009, 2019]
 	model_ensemble(samples)
+
+	# Creating model ensemble plot with predicted forecasts
 	model_ensemble_with_forecasts(samples)
+
+	# Creating leakage model ensemble plot with predicted forecasts
 	leakage_forecasting(samples)
 
 
