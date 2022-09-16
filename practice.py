@@ -2,19 +2,86 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
 
-def ode_model(t, p, q, p0 ,  a, b ):
+def ode_model(t, p, q, p0 ,  a, d ):
+    ''' Return the derivative dp/dt at time, t, for given parameters.
+        Parameters:
+        -----------
+        t : float
+            Independent variable.
+        p : float
+            Dependent variable.
+        q : float
+            mass flow rate.
+        a : float
+            Lumped parameter.
+        d : float
+            Lumped parameter.
+        p0 : float
+            Ambient value of dependent variable.
+        Returns:
+        --------
+        dpdt : float
+            Derivative of dependent variable with respect to independent variable.
+    '''
     overpressure = 25.6
+    #if greater than overpressure inlcude leakage
     if p >= overpressure:
         #print(p)
-        return (a * q - b*(p - p0)**2)
-    
+        return (a * q - d*(p - p0)**2)
+    #otherwise NO LEAKAGE
     return (a * q)
 
 
 def solve_ode_kettle(f,t0, t1, dt, x0, pars, scale=1.):
+    """ Compute solution of initial value ODE problem using explicit RK method.
+    Parameters
+    ----------
+    f : callable
+    Derivative function.
 
+    t0 : float
+    Initial value of independent variable.
+
+    t1 : float
+    Final value of independent variable.
+
+    y0 : float
+    Initial value of solution.
+
+    h : float
+    Step size.
+
+    pars : iterable
+    Optional parameters to pass into derivative function.
+
+    Returns
+    -------
+    t : array-like
+    Independent variable at solution.
+
+    y : array-like
+    Solution
+    """
     def step_ieuler(f, tk, yk, h, args=None, scale=1.):
+        ''' Finds solution after 1 improved euler step
+        Parameters
+        ----------
+        f : callable
+        Derivative function.
+        tk : float
+        current time step value.
+        yk : float
+        value of solution at time tk.
+        h : float
+        Step size.
+        args : iterable
+        Optional parameters to pass into derivative function.
 
+        Returns
+        -------
+        yk_1 : float
+        Value of solution at step size h from time tk.
+        '''
         #Solve q first
         def qsolve1(tk, scale=1.):
             q = interpolate_kettle_heatsource(tk, scale)
@@ -57,12 +124,28 @@ def solve_ode_kettle(f,t0, t1, dt, x0, pars, scale=1.):
 
 
 def interpolate_kettle_heatsource(t, scale=1.):
+    '''Finds mass values on a given month and scales them according scale factor
+    
+    Parameters
+    ---------
+    t : int
+        time value at which to find q value
 
+    scale : integer
+        Scales the injection/extraction flows
+
+    Return
+    --------
+    q[i] : Integer
+        Value of q at relevant time stamp
+    
+    '''
+    #Read relevant values
     time , mass = np.genfromtxt( 'gs_mass.txt' , delimiter=',', skip_header = 1 ).T
     secondsPerMonth = 2628288 #average month 
-    q = scale*mass / secondsPerMonth
+    q = scale*mass / secondsPerMonth #convert to Kg/s
 
-
+    #find correct time from which to read the q value and return it
     for i in range(len(time)):
         if t <= time[i]:
             return q[i]
@@ -83,7 +166,19 @@ def interpolate_kettle_heatsource(t, scale=1.):
 #     return obj
 
 def misfit(pars):
+    ''' Find and return misfit vector and prints squared sum error
+
+    Parameters
+    ----------
+    pars : iterable
+        Optional parameters to pass into derivative function.
+
+    Returns
+    ----------
+    misfitVector : array
+        contains misfit values evaluated at every data point we have been given.
     
+    '''
     time , pressure = np.genfromtxt( 'gs_pres.txt' , delimiter=',', skip_header = 1 ).T
 
     t , p = solve_ode_kettle(ode_model, 2009 ,2019, 0.05 , 25.16 , pars)
@@ -96,15 +191,26 @@ def misfit(pars):
 
     for i in range(len(time)):	# runs through time list
         misfitVector.append(pressure[i]-p_model[i])	 	# add the calculated misfit
-    tot = 0
+    tot = 0 #initiate total
     for i in misfitVector:
-        tot += i**2
-    print("squared sum error: ",tot)
-    return misfitVector
+        tot += i**2 #Add on square of each misfit
+    print("squared sum error: ",tot) #print that total value
+    
+    return misfitVector #return misfitvector
 
 
 def plot_kettle_model():
+    '''Plots initial and best fit models with their misfits, and also prints the errors
+
+    Inputs
+    --------
+    None
+
+    Returns
+    --------
+    None
     
+    '''
     time , pressure = np.genfromtxt( 'gs_pres.txt' , delimiter=',', skip_header = 1 ).T
 
     #plt.plot( time, pressure ) 
