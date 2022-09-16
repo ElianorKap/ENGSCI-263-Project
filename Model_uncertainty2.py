@@ -26,7 +26,7 @@ def grid_search():
     b_best = 0.026
 
     # Number of values considered for each parameter within a given interval
-    N = 20
+    N = 10
 
     # Vectors of parameter values
     a = np.linspace(a_best /2 ,a_best *1.5, N)
@@ -246,6 +246,7 @@ def leakage_forecasting(samples):
 
     # For each sample, solving model and plotting cumulative pressure change at different capacities
 
+    # Initialising ranges for each leakage scenario after 20 years since the beginning of the time domain
     s1min = 100
     s1max = -100
 
@@ -294,7 +295,7 @@ def leakage_forecasting(samples):
         ax2.plot(modelFTime, cumulLeakF4, 'g-', lw=0.25, alpha=0.2)
 
 
-
+        # Calculating minimum and maximum final leakage value for each operation capacity scenario
         if cumulLeakF1[-1]  < s1min:
             s1min = cumulLeakF1[-1]
 
@@ -311,12 +312,12 @@ def leakage_forecasting(samples):
             s3min = cumulLeakF3[-1]
 
         if cumulLeakF3[-1]  > s3max:
-            s3max = cumulLeakF3
+            s3max = cumulLeakF3[-1]
 
         if cumulLeakF4[-1]  < s4min:
             s4min = cumulLeakF4[-1]
 
-        if cumulLeakF1[-1] > s4max:
+        if cumulLeakF4[-1] > s4max:
             s4max = cumulLeakF4[-1]
 
 
@@ -327,12 +328,18 @@ def leakage_forecasting(samples):
     ax2.plot([], [], 'g-', lw=0.5, alpha=0.4, label='scale: 2')
     ax2.axvline(2019, color='b', linestyle=':', label='calibration/forecast')
 
+    # Printing minimum and maximum final leakage value for each operation capacity scenario
+
+    print("Minimum and maximum leakage value for scenario 1")
     print(s1min)
     print(s1max)
+    print("Minimum and maximum leakage value for scenario 2")
     print(s2min)
     print(s2max)
+    print("Minimum and maximum leakage value for scenario 3")
     print(s3min)
     print(s3max)
+    print("Minimum and maximum leakage value for scenario 4")
     print(s4min)
     print(s4max)
 
@@ -453,7 +460,7 @@ def present_plots():
     a, b, posterior = grid_search()
 
     # Setting number of samples
-    N = 20
+    N = 10
 
     # Collecting sampled values for parameters
     samples = construct_samples(a, b, posterior, N)
