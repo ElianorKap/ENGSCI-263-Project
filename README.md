@@ -88,4 +88,8 @@ Additional:
 
 ## Ownership
 
-- 
+- Ayaan Saiyad
+- Elianor Kapelevich
+- June Terzaghi
+- Yan Liu
+- Alex Xie
