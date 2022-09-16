@@ -128,7 +128,7 @@ def model_ensemble(samples):
 
     # Extracting historical data
     tp, po = np.genfromtxt('gs_pres.txt', delimiter=',', skip_header=1).T
-    ax.axhline(25.16, color='g', linestyle=':', label='overpressure')
+    ax.axhline(25.6, color='g', linestyle=':', label='overpressure')
 
     # Plotting data as error bars
     v = 0.15
@@ -179,7 +179,7 @@ def model_ensemble_with_forecasts(samples):
     ax1.plot([], [], 'm-', lw=0.5, alpha=0.4, label='scale: 1.2')
     ax1.plot([], [], 'y-', lw=0.5, alpha=0.4, label='scale: 1.5')
     ax1.axvline(2019, color='b', linestyle=':', label='calibration/forecast')
-    ax1.axhline(25.16, color='g', linestyle=':', label='overpressure')
+    ax1.axhline(25.6, color='g', linestyle=':', label='overpressure')
 
     v = 0.15
     ax1.errorbar(tp, po, yerr=v, fmt='ro', markersize=2, label='data')
@@ -207,7 +207,7 @@ def leakage_forecasting(samples):
     '''
 
     fig2, ax2 = plt.subplots(1, 1, figsize=(12, 6))
-    overpressure = 25.16
+    overpressure = 25.6
 
     cumulLeak1 = list()
     count = 0
