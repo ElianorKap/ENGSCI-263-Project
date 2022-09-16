@@ -16,6 +16,26 @@ from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
 
 def ode_model(t, p, q, p0 ,a, b):
+    ''' Return the derivative dp/dt at time, t, for given parameters.
+        Parameters:
+        -----------
+        t : float
+            Independent variable.
+        p : float
+            Dependent variable.
+        q : float
+            mass flow rate.
+        a : float
+            Lumped parameter.
+        d : float
+            Lumped parameter.
+        p0 : float
+            Ambient value of dependent variable.
+        Returns:
+        --------
+        dpdt : float
+            Derivative of dependent variable with respect to independent variable.
+    '''
     overpressure = 25.6
     if p >= overpressure:
         #print(p)
@@ -25,7 +45,22 @@ def ode_model(t, p, q, p0 ,a, b):
 
 
 def interpolate_kettle_heatsource(t, scale=1.):
+    '''Finds mass values on a given month and scales them according scale factor
+    
+    Parameters
+    ---------
+    t : list
+        time values at which to find q value
 
+    scale : integer
+        Scales the injection/extraction flows
+
+    Return
+    --------
+    res : list
+        Values of q at relevant time stamps
+    
+    '''
     time , mass = np.genfromtxt( 'gs_mass.txt' , delimiter=',', skip_header = 1 ).T
     secondsPerMonth = 2628288 #average month
     q = scale * mass / secondsPerMonth
