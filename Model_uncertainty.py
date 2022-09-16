@@ -354,12 +354,17 @@ def plot_histograms(samples):
 	plt.savefig('Histogram b')
 	plt.show()
 
+def histogram_plots():
+	N = 10000
+	a,b,posterior = grid_search()
+	samples = construct_samples(a, b, posterior, N)
+	plot_histograms(samples)
+
 def present_plots():
+	histogram_plots()
 	a,b,posterior = grid_search()
 	N = 20
 	samples = construct_samples(a, b, posterior, N)
-
-	plot_histograms(samples)
 	model_ensemble(samples)
 	model_ensemble_with_forecasts(samples)
 	leakage_forecasting(samples)
