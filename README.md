@@ -18,7 +18,7 @@ leakage of the Natural Gas Storage at Ahuroa, Taranaki. We will then use this mo
 our data. Also, provide recommendations for FlexGas to make the most financially optimal decision while eliminating or reducing gas leakage to a minimum 
 to prevent local farmer's properties from catching fire. This repository will contain functions that produce all the figures needed to complete the required analysis.
 
-## Libraries Used
+## Libraries Used (REQUIRED TO RUN Main.py)
 
 * `numpy`
 * `matplotlib` - pyplot

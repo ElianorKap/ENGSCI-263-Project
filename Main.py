@@ -30,7 +30,7 @@ if __name__ == '__main__':
 # 4. Predictions
     from June_sdlab_functions import *
     from JuneUncertainty import *
-    main(False, True, True, True, True)
+    main(False, False, True, True, True)
     
 #5. Uncertainty analysis
     from Model_uncertainty import *
