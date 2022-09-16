@@ -18,6 +18,18 @@ leakage of the Natural Gas Storage at Ahuroa, Taranaki. We will then use this mo
 our data. Also, provide recommendations for FlexGas to make the most financially optimal decision while eliminating or reducing gas leakage to a minimum 
 to prevent local farmer's properties from catching fire. This repository will contain functions that produce all the figures needed to complete the required analysis.
 
+## Libraries Used
+
+* `numpy`
+* `matplotlib` - pyplot
+* `matplotlib` - cm
+* `math` - isclose
+* `pandas`
+* `statistics`
+* `scipy.optimize` - curve_fit 
+* `mpl_toolkits.mplot3d` - Axes3D
+* `cProfile` - label
+
 ## Key Tasks
 
 This repository will contain python functions to perform the following tasks:
@@ -73,3 +85,7 @@ Additional:
 2. Use the `git clone` command to clone this repository into a folder of choice
 3. Open `Main.py` 
 4. Run `Main.py` which will produce all the model figures used in the group projects.
+
+## Ownership
+
+- 
