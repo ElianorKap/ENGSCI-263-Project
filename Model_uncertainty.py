@@ -354,9 +354,7 @@ def plot_histograms(samples):
 	plt.savefig('Histogram b')
 	plt.show()
 
-
-if __name__=="__main__":
-
+def present_plots():
 	a,b,posterior = grid_search()
 	N = 20
 	samples = construct_samples(a, b, posterior, N)
@@ -365,5 +363,9 @@ if __name__=="__main__":
 	model_ensemble(samples)
 	model_ensemble_with_forecasts(samples)
 	leakage_forecasting(samples)
+
+
+if __name__=="__main__":
+	present_plots()
 
 

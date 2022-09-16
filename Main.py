@@ -7,7 +7,7 @@ if __name__ == '__main__':
     B = 0.026
     p0 = 10.87
     q = statistics.mean(find_q())
-    
+
 #1. Unit tests
     from Model_Unit_Tests import *
     test_1()
@@ -22,15 +22,16 @@ if __name__ == '__main__':
                   
 # 3.0 Model Calibration -> Pre manual tweaks
     from lab2_curve_fitting import *
-    plot_kettle_model() 
+    plot_kettle_model()
 # 3.5 Model Calibration -> Post manual tweaking
     from practice import *
-    plot_kettle_model() 
+    plot_kettle_model()
     
 # 4. Predictions
     from June_sdlab_functions import *
     from JuneUncertainty import *
-    main() 
+    main(False, True, True, True, True)
     
 #5. Uncertainty analysis
     from Model_uncertainty import *
+    present_plots()
