@@ -171,7 +171,7 @@ def plot_kettle_model():
     ax[1].set_ylim(-0.4,0.4)
     ax[0].set_xlabel('time, $t$ [year]')
     ax[0].set_ylabel('Pressure, $MPa$')
-    f.suptitle("Best Fit LPM Model")
+    f.suptitle("Initial Best Fit LPM Model")
     ax[0].legend()
 
     ax[1].set_xlabel('time, $t$ [year]')
